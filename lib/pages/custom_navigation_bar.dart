@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomNavigationBar extends StatefulWidget {
@@ -23,48 +24,48 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(
+                    Container(
                       width: 50,
                       height: 50,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: const Color.fromRGBO(5, 23, 87, .5),
-                            borderRadius: BorderRadius.circular(15)),
-                        child: const Icon(
-                          size: 32,
-                          Icons.local_movies_rounded,
-                          color: Colors.white,
-                        ),
-                      ),
+                      decoration: BoxDecoration(
+                          color: const Color.fromRGBO(5, 23, 87, 0.5),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.local_movies_rounded,
+                            size: 32,
+                            color: Colors.white,
+                          )),
                     ),
-                    SizedBox(
+                    Container(
                       width: 50,
                       height: 50,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: const Color.fromRGBO(5, 23, 87, 0.5),
-                            borderRadius: BorderRadius.circular(15)),
-                        child: const Icon(
-                          size: 32,
-                          Icons.movie_creation_outlined,
-                          color: Colors.white,
-                        ),
-                      ),
+                      decoration: BoxDecoration(
+                          color: const Color.fromRGBO(5, 23, 87, 0.5),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.movie_creation_outlined,
+                            size: 32,
+                            color: Colors.white,
+                          )),
                     ),
-                    SizedBox(
+                    Container(
                       width: 50,
                       height: 50,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: const Color.fromRGBO(5, 23, 87, 0.5),
-                            borderRadius: BorderRadius.circular(15)),
-                        child: const Icon(
-                          size: 32,
-                          Icons.movie_filter_rounded,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
+                      decoration: BoxDecoration(
+                          color: const Color.fromRGBO(5, 23, 87, 0.5),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.movie_filter_rounded,
+                            size: 32,
+                            color: Colors.white,
+                          )),
+                    ),
                   ],
                 ),
               ),
