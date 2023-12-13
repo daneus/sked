@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
-  void _navigateBottomBar(int index) {
+  void navigateBottomBar(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
-      bottomNavigationBar: const CustomNavigationBar(),
+      bottomNavigationBar: CustomNavigationBar(navigateBottomBar),
       extendBody: true,
     );
   }
