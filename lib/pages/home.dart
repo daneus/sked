@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sked/pages/custom_navigation_bar.dart';
+import 'package:sked/pages/funciones.dart';
 import 'package:sked/pages/pelicula_individual.dart';
 import 'package:sked/pages/peliculas.dart';
 
@@ -18,20 +20,18 @@ class _HomeState extends State<Home> {
     });
   }
 
-  final List _pages = [const Peliculas(), const PeliculaIndividual()];
+  final List _pages = [
+    const Peliculas(),
+    const PeliculaIndividual(),
+    const Funciones()
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
       body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: _navigateBottomBar,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.money), label: "Cartera")
-          ]),
+      bottomNavigationBar: const CustomNavigationBar(),
+      extendBody: true,
     );
   }
 }
