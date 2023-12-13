@@ -17,7 +17,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             child: Container(
               decoration: BoxDecoration(
                   color: const Color.fromRGBO(12, 66, 148, 0.55),
-                  borderRadius: BorderRadius.circular(24)),
+                  borderRadius: BorderRadius.circular(30)),
               child: SizedBox(
                 height: 75,
                 child: Row(
@@ -29,9 +29,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                       child: Container(
                         decoration: BoxDecoration(
                             color: const Color.fromRGBO(5, 23, 87, .5),
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(15)),
                         child: const Icon(
-                          size: 35,
+                          size: 32,
                           Icons.local_movies_rounded,
                           color: Colors.white,
                         ),
@@ -42,10 +42,10 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                       height: 50,
                       child: Container(
                         decoration: BoxDecoration(
-                            color: const Color.fromRGBO(5, 23, 87, .5),
-                            borderRadius: BorderRadius.circular(10)),
+                            color: const Color.fromRGBO(5, 23, 87, 0.5),
+                            borderRadius: BorderRadius.circular(15)),
                         child: const Icon(
-                          size: 35,
+                          size: 32,
                           Icons.movie_creation_outlined,
                           color: Colors.white,
                         ),
@@ -56,10 +56,10 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                       height: 50,
                       child: Container(
                         decoration: BoxDecoration(
-                            color: const Color.fromRGBO(5, 23, 87, .5),
-                            borderRadius: BorderRadius.circular(10)),
+                            color: const Color.fromRGBO(5, 23, 87, 0.5),
+                            borderRadius: BorderRadius.circular(15)),
                         child: const Icon(
-                          size: 35,
+                          size: 32,
                           Icons.movie_filter_rounded,
                           color: Colors.white,
                         ),
