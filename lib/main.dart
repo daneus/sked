@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const Home(),
+      theme: ThemeData(fontFamily: 'Avenir'),
       routes: {
         "/peliculas": (context) => const Peliculas(),
         "/peliculaIndividual": (context) => const PeliculaIndividual()

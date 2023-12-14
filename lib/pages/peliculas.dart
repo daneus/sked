@@ -8,6 +8,7 @@ class Peliculas extends StatelessWidget {
     return Material(
       child: Scaffold(
         body: Container(
+          constraints: const BoxConstraints.expand(),
           decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.bottomLeft,
@@ -28,6 +29,26 @@ class Peliculas extends StatelessWidget {
                 0.82,
                 1
               ])),
+          child: SafeArea(
+              child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 30, bottom: 15),
+                child: const Text(
+                  "Películas",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 50),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                margin: const EdgeInsets.only(bottom: 30),
+                color: Colors.black,
+              ))
+            ],
+          )),
         ),
       ),
     );

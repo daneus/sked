@@ -23,7 +23,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Container(
-            margin: const EdgeInsets.only(bottom: 25, left: 70, right: 70),
+            margin: const EdgeInsets.only(bottom: 30, left: 70, right: 70),
             padding: const EdgeInsets.all(0),
             child: Container(
               decoration: BoxDecoration(
