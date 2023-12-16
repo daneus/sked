@@ -1,7 +1,7 @@
 class ModeloPelicula {
   //From primary API
   final String verticalPosterURL;
-  final String titulo;
+  final String title;
   final int runtime;
   //From secondary API
   final String imdbRating;
@@ -9,7 +9,7 @@ class ModeloPelicula {
 
   ModeloPelicula(
       {required this.verticalPosterURL,
-      required this.titulo,
+      required this.title,
       required this.runtime,
       required this.imdbRating,
       required this.ageRating});
@@ -17,7 +17,7 @@ class ModeloPelicula {
   factory ModeloPelicula.fromJson(Map<String, dynamic> json) {
     return ModeloPelicula(
         verticalPosterURL: json['verticalPosterURL'],
-        titulo: json['titulo'],
+        title: json['title'],
         runtime: json['runtime'],
         imdbRating: json['imdbRating'],
         ageRating: json['ageRating']);
