@@ -3,8 +3,26 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/modelo_pelicula.dart';
 
-class Peliculas extends StatelessWidget {
+class Peliculas extends StatefulWidget {
   const Peliculas({super.key});
+
+  @override
+  State<Peliculas> createState() => _PeliculasState();
+}
+
+class _PeliculasState extends State<Peliculas> {
+  List<String> tabs = ["En cartelera", "Próximamente"];
+  int currentTab = 0;
+  List<double> changePositionAndWidthOfLine() {
+    switch (currentTab) {
+      case 0:
+        return [43, 115];
+      case 1:
+        return [223, 143];
+      default:
+        return [0, 100];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,35 +78,119 @@ class Peliculas extends StatelessWidget {
                       fontSize: 50),
                 ),
               ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 30),
+                child: Stack(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              currentTab = 0;
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                                child: Text(
+                              "En cartelera",
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w700,
+                                  color: currentTab == 0
+                                      ? Colors.white
+                                      : const Color.fromRGBO(160, 160, 160, 1)),
+                            )),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              currentTab = 1;
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                                child: Text(
+                              "Próximamente",
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w700,
+                                  color: currentTab == 1
+                                      ? Colors.white
+                                      : const Color.fromRGBO(160, 160, 160, 1)),
+                            )),
+                          ),
+                        )
+                      ],
+                    ),
+                    AnimatedPositioned(
+                      bottom: 0,
+                      curve: Curves.fastLinearToSlowEaseIn,
+                      left: changePositionAndWidthOfLine()[0],
+                      duration: const Duration(milliseconds: 600),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 600),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                        width: changePositionAndWidthOfLine()[1],
+                        height: 4,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white),
+                      ),
+                    )
+                  ],
+                ),
+              ),
               Expanded(
                   child: Container(
                 margin: const EdgeInsets.only(bottom: 30),
-                color: Colors.white,
-                child: FutureBuilder<List<ModeloPelicula>>(
-                  future: fetchMovies(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else if (snapshot.hasError) {
-                      return Text("Error XD: ${snapshot.error}");
-                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return const Text("No data available!");
-                    } else {
-                      return ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: const EdgeInsets.all(8.0),
-                            padding: const EdgeInsets.all(16.0),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black),
-                                borderRadius: BorderRadius.circular(8.0)),
-                            child: Text(snapshot.data![index].title),
+                width: MediaQuery.of(context).size.width,
+                child: IndexedStack(
+                  index: currentTab,
+                  children: [
+                    FutureBuilder<List<ModeloPelicula>>(
+                      future: fetchMovies(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: SizedBox(
+                            width: 60,
+                            height: 60,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 6,
+                            ),
+                          ));
+                        } else if (snapshot.hasError) {
+                          return Text("Error XD: ${snapshot.error}");
+                        } else if (!snapshot.hasData ||
+                            snapshot.data!.isEmpty) {
+                          return const Text("No data available!");
+                        } else {
+                          return ListView.builder(
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(16.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(8.0)),
+                                child: Text(snapshot.data![index].title),
+                              );
+                            },
                           );
-                        },
-                      );
-                    }
-                  },
+                        }
+                      },
+                    ),
+                    const Text("LOL")
+                  ],
                 ),
               ))
             ],
