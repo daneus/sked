@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_escapes
+
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -41,6 +43,21 @@ class _PeliculasState extends State<Peliculas> {
       }
     }
 
+    String formatTime(int totalMinutes) {
+      int hours = totalMinutes ~/ 60;
+      int minutes = totalMinutes % 60;
+
+      if (hours > 0 && minutes > 0) {
+        return '$hours\h $minutes\m';
+      } else if (hours > 0) {
+        return '$hours h';
+      } else if (minutes > 0) {
+        return '$minutes m';
+      } else {
+        return '0 m';
+      }
+    }
+
     return Material(
       child: Scaffold(
         body: Container(
@@ -69,13 +86,13 @@ class _PeliculasState extends State<Peliculas> {
               child: Column(
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 30, bottom: 15),
+                margin: const EdgeInsets.only(top: 20),
                 child: const Text(
                   "Películas",
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,
-                      fontSize: 50),
+                      fontSize: 40),
                 ),
               ),
               Container(
@@ -173,17 +190,138 @@ class _PeliculasState extends State<Peliculas> {
                           return const Text("No data available!");
                         } else {
                           return ListView.builder(
+                            scrollDirection: Axis.horizontal,
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
                               return Container(
-                                margin: const EdgeInsets.all(8.0),
-                                padding: const EdgeInsets.all(16.0),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: Colors.black),
-                                    borderRadius: BorderRadius.circular(8.0)),
-                                child: Text(snapshot.data![index].title),
-                              );
+                                  margin: const EdgeInsets.only(
+                                      left: 15, right: 15),
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        decoration:
+                                            const BoxDecoration(boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(4, 4),
+                                            blurRadius: 6.5,
+                                            color: Color.fromRGBO(0, 0, 0, 0.5),
+                                          )
+                                        ]),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Image.network(
+                                            snapshot
+                                                .data![index].verticalPosterURL,
+                                            width: 270,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 16, bottom: 3),
+                                        child: Text(
+                                          snapshot.data![index].title,
+                                          style: const TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            child: Center(
+                                              child: Image.asset(
+                                                'assets/imdbLogo.png',
+                                                height: 25,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 5),
+                                          const Icon(
+                                            Icons.star_rate_rounded,
+                                            size: 28,
+                                            color: Colors.yellow,
+                                          ),
+                                          SizedBox(
+                                            height: 25,
+                                            child: Center(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 6),
+                                                child: Text(
+                                                  snapshot
+                                                      .data![index].imdbRating,
+                                                  style: const TextStyle(
+                                                      fontSize: 20,
+                                                      height: 1,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      color: Colors.white),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromRGBO(
+                                                    78, 124, 193, 0.7),
+                                                border: Border.all(
+                                                    width: 2,
+                                                    color: const Color.fromRGBO(
+                                                        0, 79, 197, 1)),
+                                                borderRadius:
+                                                    BorderRadius.circular(6)),
+                                            child: Center(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        5, 3, 5, 1),
+                                                child: Text(
+                                                  snapshot
+                                                      .data![index].ageRating,
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 10),
+                                          const Icon(
+                                            Icons.slow_motion_video,
+                                            color: Colors.white,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                4, 4, 0, 0),
+                                            child: Text(
+                                                formatTime(snapshot
+                                                    .data![index].runtime),
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.w600)),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ));
                             },
                           );
                         }
