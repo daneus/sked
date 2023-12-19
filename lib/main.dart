@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sked/pages/pelicula_individual.dart';
 import 'package:sked/pages/home.dart';
-import 'package:sked/pages/peliculas.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +13,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: const Home(),
       theme: ThemeData(fontFamily: 'Avenir'),
-      routes: {
-        "/peliculas": (context) => const Peliculas(),
-        "/peliculaIndividual": (context) => const PeliculaIndividual()
-      },
       debugShowCheckedModeBanner: false,
     );
   }
