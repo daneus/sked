@@ -9,7 +9,7 @@ class Peliculas extends StatefulWidget {
   final Function(int) onBodyChanged;
 
   // ignore: prefer_const_constructors_in_immutables
-  Peliculas({Key? key, required this.onBodyChanged}) : super(key: key);
+  Peliculas({super.key, required this.onBodyChanged});
 
   @override
   State<Peliculas> createState() => _PeliculasState();
