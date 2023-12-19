@@ -7,9 +7,12 @@ import '../models/modelo_pelicula.dart';
 
 class Peliculas extends StatefulWidget {
   final Function(int) onBodyChanged;
+  final Function(ModeloPelicula) onPeliculaSelected;
 
-  // ignore: prefer_const_constructors_in_immutables
-  Peliculas({super.key, required this.onBodyChanged});
+  const Peliculas(
+      {required this.onBodyChanged,
+      required this.onPeliculaSelected,
+      super.key});
 
   @override
   State<Peliculas> createState() => _PeliculasState();
@@ -208,6 +211,8 @@ class _PeliculasState extends State<Peliculas> {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
+                                          widget.onPeliculaSelected(
+                                              snapshot.data![index]);
                                           widget.onBodyChanged(3);
                                         },
                                         child: Container(

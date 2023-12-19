@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sked/models/modelo_pelicula.dart';
 import 'package:sked/pages/custom_navigation_bar.dart';
 import 'package:sked/pages/funciones.dart';
 import 'package:sked/pages/funciones_pasadas.dart';
@@ -21,11 +22,20 @@ class _HomeState extends State<Home> {
     super.initState();
     _selectedIndex = 0;
     _pages = [
-      Peliculas(onBodyChanged: navigateBottomBar),
+      Peliculas(
+        onBodyChanged: navigateBottomBar,
+        onPeliculaSelected: handleModeloPelicula,
+      ),
       const Funciones(),
       const FuncionesPasadas(),
-      const PeliculaIndividual(),
+      const PeliculaIndividual(modeloPelicula: null),
     ];
+  }
+
+  void handleModeloPelicula(ModeloPelicula peliculaSeleccionada) {
+    setState(() {
+      _pages[3] = PeliculaIndividual(modeloPelicula: peliculaSeleccionada);
+    });
   }
 
   void navigateBottomBar(int index) {
