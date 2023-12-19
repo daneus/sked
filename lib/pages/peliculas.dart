@@ -6,7 +6,10 @@ import 'package:http/http.dart' as http;
 import '../models/modelo_pelicula.dart';
 
 class Peliculas extends StatefulWidget {
-  const Peliculas({super.key});
+  final Function(int) onBodyChanged;
+
+  // ignore: prefer_const_constructors_in_immutables
+  Peliculas({Key? key, required this.onBodyChanged}) : super(key: key);
 
   @override
   State<Peliculas> createState() => _PeliculasState();
@@ -203,22 +206,28 @@ class _PeliculasState extends State<Peliculas> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        decoration:
-                                            const BoxDecoration(boxShadow: [
-                                          BoxShadow(
-                                            offset: Offset(4, 4),
-                                            blurRadius: 6.5,
-                                            color: Color.fromRGBO(0, 0, 0, 0.5),
-                                          )
-                                        ]),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          child: Image.network(
-                                            snapshot
-                                                .data![index].verticalPosterURL,
-                                            width: 270,
+                                      GestureDetector(
+                                        onTap: () {
+                                          widget.onBodyChanged(3);
+                                        },
+                                        child: Container(
+                                          decoration:
+                                              const BoxDecoration(boxShadow: [
+                                            BoxShadow(
+                                              offset: Offset(4, 4),
+                                              blurRadius: 6.5,
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 0.5),
+                                            )
+                                          ]),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            child: Image.network(
+                                              snapshot.data![index]
+                                                  .verticalPosterURL,
+                                              width: 270,
+                                            ),
                                           ),
                                         ),
                                       ),
