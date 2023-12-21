@@ -379,22 +379,30 @@ class _PeliculasState extends State<Peliculas> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Container(
-                                        decoration:
-                                            const BoxDecoration(boxShadow: [
-                                          BoxShadow(
-                                            offset: Offset(4, 4),
-                                            blurRadius: 6.5,
-                                            color: Color.fromRGBO(0, 0, 0, 0.5),
-                                          )
-                                        ]),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          child: Image.network(
-                                            snapshot
-                                                .data![index].verticalPosterURL,
-                                            width: 270,
+                                      GestureDetector(
+                                        onTap: () {
+                                          widget.onPeliculaSelected(
+                                              snapshot.data![index]);
+                                          widget.onBodyChanged(3);
+                                        },
+                                        child: Container(
+                                          decoration:
+                                              const BoxDecoration(boxShadow: [
+                                            BoxShadow(
+                                              offset: Offset(4, 4),
+                                              blurRadius: 6.5,
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 0.5),
+                                            )
+                                          ]),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            child: Image.network(
+                                              snapshot.data![index]
+                                                  .verticalPosterURL,
+                                              width: 270,
+                                            ),
                                           ),
                                         ),
                                       ),
