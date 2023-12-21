@@ -266,7 +266,7 @@ class _PeliculasState extends State<Peliculas> {
                                           const Icon(
                                             Icons.star_rate_rounded,
                                             size: 28,
-                                            color: Colors.yellow,
+                                            color: Colors.amber,
                                           ),
                                           SizedBox(
                                             height: 25,
@@ -427,7 +427,7 @@ class _PeliculasState extends State<Peliculas> {
                                           const Icon(
                                             Icons.star_rate_rounded,
                                             size: 28,
-                                            color: Colors.yellow,
+                                            color: Colors.amber,
                                           ),
                                           SizedBox(
                                             height: 25,
