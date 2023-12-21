@@ -43,7 +43,8 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
             );
           } else {
             Color backgroundColor =
-                snapshot.data?.dominantColor?.color ?? Colors.green;
+                snapshot.data?.dominantColor?.color ?? Colors.white;
+            double luminance = backgroundColor.computeLuminance();
             return Stack(
               children: [
                 Image.network(
@@ -69,8 +70,10 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                               children: [
                                 Text(
                                   widget.modeloPelicula!.title,
-                                  style: const TextStyle(
-                                      color: Colors.white,
+                                  style: TextStyle(
+                                      color: luminance > 0.5
+                                          ? Colors.black
+                                          : Colors.white,
                                       fontWeight: FontWeight.w700,
                                       fontSize: 26),
                                 ),
