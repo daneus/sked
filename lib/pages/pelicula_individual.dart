@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sked/models/modelo_pelicula.dart';
-import 'package:palette_generator/palette_generator.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class PeliculaIndividual extends StatefulWidget {
@@ -13,19 +12,6 @@ class PeliculaIndividual extends StatefulWidget {
 }
 
 class _PeliculaIndividualState extends State<PeliculaIndividual> {
-  late Future<PaletteGenerator> _paletteGenerator;
-
-  @override
-  void initState() {
-    super.initState();
-    _paletteGenerator = _generatePalette();
-  }
-
-  Future<PaletteGenerator> _generatePalette() async {
-    return PaletteGenerator.fromImageProvider(
-        NetworkImage(widget.modeloPelicula!.verticalPosterURL));
-  }
-
   @override
   Widget build(BuildContext context) {
     String formatTime(int totalMinutes) {
