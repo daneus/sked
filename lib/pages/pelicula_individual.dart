@@ -56,13 +56,13 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
                           colors: [backgroundColor, Colors.transparent],
-                          stops: const <double>[.53, 1]),
+                          stops: const <double>[.65, 1]),
                     ),
                   ),
                   SafeArea(
                       child: Container(
                           margin: EdgeInsets.only(
-                              top: MediaQuery.sizeOf(context).height * .35),
+                              top: MediaQuery.sizeOf(context).height * .325),
                           child: Padding(
                             padding: const EdgeInsets.only(left: 20, right: 20),
                             child: Column(
