@@ -27,7 +27,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             padding: const EdgeInsets.all(0),
             child: Container(
               decoration: BoxDecoration(
-                  color: const Color.fromRGBO(12, 66, 148, 0.55),
+                  color: const Color.fromARGB(255, 27, 84, 168),
                   borderRadius: BorderRadius.circular(30)),
               child: SizedBox(
                 height: 75,
@@ -44,7 +44,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                             duration: const Duration(milliseconds: 250),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(5, 23, 87, 1),
+                                  color: const Color.fromARGB(255, 3, 18, 73),
                                   borderRadius: BorderRadius.circular(15)),
                             ),
                           ),
@@ -73,7 +73,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                             duration: const Duration(milliseconds: 250),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(5, 23, 87, 1),
+                                  color: const Color.fromARGB(255, 3, 18, 73),
                                   borderRadius: BorderRadius.circular(15)),
                             ),
                           ),
@@ -102,7 +102,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                             duration: const Duration(milliseconds: 250),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(5, 23, 87, 1),
+                                  color: const Color.fromARGB(255, 3, 18, 73),
                                   borderRadius: BorderRadius.circular(15)),
                             ),
                           ),

@@ -200,6 +200,7 @@ class _PeliculasState extends State<Peliculas> {
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
                               return Container(
+                                  width: 280,
                                   margin: const EdgeInsets.only(
                                       left: 15, right: 15),
                                   decoration: BoxDecoration(
@@ -241,6 +242,8 @@ class _PeliculasState extends State<Peliculas> {
                                             top: 16, bottom: 3),
                                         child: Text(
                                           snapshot.data![index].title,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
                                               fontSize: 22,
                                               fontWeight: FontWeight.w700,
@@ -366,6 +369,7 @@ class _PeliculasState extends State<Peliculas> {
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
                               return Container(
+                                  width: 280,
                                   margin: const EdgeInsets.only(
                                       left: 15, right: 15),
                                   decoration: BoxDecoration(
@@ -399,6 +403,8 @@ class _PeliculasState extends State<Peliculas> {
                                             top: 16, bottom: 3),
                                         child: Text(
                                           snapshot.data![index].title,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
                                               fontSize: 22,
                                               fontWeight: FontWeight.w700,
