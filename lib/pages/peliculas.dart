@@ -1,8 +1,7 @@
 // ignore_for_file: unnecessary_string_escapes
-
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:sked/main.dart';
 import '../models/modelo_pelicula.dart';
 
 class Peliculas extends StatefulWidget {
@@ -34,20 +33,7 @@ class _PeliculasState extends State<Peliculas> {
 
   @override
   Widget build(BuildContext context) {
-    List<ModeloPelicula> parseMovies(String responseBody) {
-      List<dynamic> jsonData = json.decode(responseBody);
-      return jsonData.map((json) => ModeloPelicula.fromJson(json)).toList();
-    }
-
-    Future<List<ModeloPelicula>> fetchMovies() async {
-      final response =
-          await http.get(Uri.parse('http://192.168.18.12:3000/cartelera'));
-      if (response.statusCode == 200) {
-        return parseMovies(response.body);
-      } else {
-        throw Exception('Failed to retrieve movies!');
-      }
-    }
+    final dataModel = Provider.of<DataModel>(context);
 
     String formatTime(int totalMinutes) {
       int hours = totalMinutes ~/ 60;
@@ -175,344 +161,292 @@ class _PeliculasState extends State<Peliculas> {
                 child: IndexedStack(
                   index: currentTab,
                   children: [
-                    FutureBuilder<List<ModeloPelicula>>(
-                      future: fetchMovies(),
+                    FutureBuilder(
+                      future: dataModel.fetchMovies(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: SizedBox(
-                            width: 60,
-                            height: 60,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 6,
-                            ),
-                          ));
-                        } else if (snapshot.hasError) {
-                          return Text("Error XD: ${snapshot.error}");
-                        } else if (!snapshot.hasData ||
-                            snapshot.data!.isEmpty) {
-                          return const Text("No data available!");
-                        } else {
-                          return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                  width: 280,
-                                  margin: const EdgeInsets.only(
-                                      left: 15, right: 15),
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(15.0)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          widget.onPeliculaSelected(
-                                              snapshot.data![index]);
-                                          widget.onBodyChanged(3);
-                                        },
-                                        child: Container(
-                                          decoration:
-                                              const BoxDecoration(boxShadow: [
-                                            BoxShadow(
-                                              offset: Offset(4, 4),
-                                              blurRadius: 6.5,
-                                              color:
-                                                  Color.fromRGBO(0, 0, 0, 0.5),
-                                            )
-                                          ]),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            child: Image.network(
-                                              snapshot.data![index]
-                                                  .verticalPosterURL,
-                                              width: 270,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 16, bottom: 3),
-                                        child: Text(
-                                          snapshot.data![index].title,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            child: Center(
-                                              child: Image.asset(
-                                                'assets/imdbLogo.png',
-                                                height: 25,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 5),
-                                          const Icon(
-                                            Icons.star_rate_rounded,
-                                            size: 28,
-                                            color: Colors.amber,
-                                          ),
-                                          SizedBox(
-                                            height: 25,
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 6),
-                                                child: Text(
-                                                  snapshot
-                                                      .data![index].imdbRating,
-                                                  style: const TextStyle(
-                                                      fontSize: 20,
-                                                      height: 1,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            ),
+                        final List<ModeloPelicula> movies = snapshot.data ?? [];
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: movies.length,
+                          itemBuilder: (context, index) {
+                            final movie = movies[index];
+                            return Container(
+                                width: 280,
+                                margin:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.0)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        widget.onPeliculaSelected(movie);
+                                        widget.onBodyChanged(3);
+                                      },
+                                      child: Container(
+                                        decoration:
+                                            const BoxDecoration(boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(4, 4),
+                                            blurRadius: 6.5,
+                                            color: Color.fromRGBO(0, 0, 0, 0.5),
                                           )
-                                        ],
+                                        ]),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Image.network(
+                                            movie.verticalPosterURL,
+                                            width: 270,
+                                          ),
+                                        ),
                                       ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                color: const Color.fromRGBO(
-                                                    78, 124, 193, 0.7),
-                                                border: Border.all(
-                                                    width: 2,
-                                                    color: const Color.fromRGBO(
-                                                        0, 79, 197, 1)),
-                                                borderRadius:
-                                                    BorderRadius.circular(6)),
-                                            child: Center(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        5, 3, 5, 1),
-                                                child: Text(
-                                                  snapshot
-                                                      .data![index].ageRating,
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 16, bottom: 3),
+                                      child: Text(
+                                        movie.title,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          child: Center(
+                                            child: Image.asset(
+                                              'assets/imdbLogo.png',
+                                              height: 25,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 5),
+                                        const Icon(
+                                          Icons.star_rate_rounded,
+                                          size: 28,
+                                          color: Colors.amber,
+                                        ),
+                                        SizedBox(
+                                          height: 25,
+                                          child: Center(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 6),
+                                              child: Text(
+                                                movie.imdbRating,
+                                                style: const TextStyle(
+                                                    fontSize: 20,
+                                                    height: 1,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Colors.white),
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(width: 10),
-                                          const Icon(
-                                            Icons.slow_motion_video,
-                                            color: Colors.white,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                4, 4, 0, 0),
-                                            child: Text(
-                                                formatTime(snapshot
-                                                    .data![index].runtime),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromRGBO(
+                                                  78, 124, 193, 0.7),
+                                              border: Border.all(
+                                                  width: 2,
+                                                  color: const Color.fromRGBO(
+                                                      0, 79, 197, 1)),
+                                              borderRadius:
+                                                  BorderRadius.circular(6)),
+                                          child: Center(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      5, 3, 5, 1),
+                                              child: Text(
+                                                movie.ageRating,
                                                 style: const TextStyle(
-                                                    fontSize: 16,
                                                     color: Colors.white,
                                                     fontWeight:
-                                                        FontWeight.w600)),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ));
-                            },
-                          );
-                        }
+                                                        FontWeight.w600),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        const Icon(
+                                          Icons.slow_motion_video,
+                                          color: Colors.white,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              4, 4, 0, 0),
+                                          child: Text(formatTime(movie.runtime),
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600)),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ));
+                          },
+                        );
+                        // }
                       },
                     ),
-                    FutureBuilder<List<ModeloPelicula>>(
-                      future: fetchMovies(),
+                    FutureBuilder(
+                      future: dataModel.fetchMovies(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: SizedBox(
-                            width: 60,
-                            height: 60,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 6,
-                            ),
-                          ));
-                        } else if (snapshot.hasError) {
-                          return Text("Error XD: ${snapshot.error}");
-                        } else if (!snapshot.hasData ||
-                            snapshot.data!.isEmpty) {
-                          return const Text("No data available!");
-                        } else {
-                          return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                  width: 280,
-                                  margin: const EdgeInsets.only(
-                                      left: 15, right: 15),
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(15.0)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          widget.onPeliculaSelected(
-                                              snapshot.data![index]);
-                                          widget.onBodyChanged(3);
-                                        },
-                                        child: Container(
-                                          decoration:
-                                              const BoxDecoration(boxShadow: [
-                                            BoxShadow(
-                                              offset: Offset(4, 4),
-                                              blurRadius: 6.5,
-                                              color:
-                                                  Color.fromRGBO(0, 0, 0, 0.5),
-                                            )
-                                          ]),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            child: Image.network(
-                                              snapshot.data![index]
-                                                  .verticalPosterURL,
-                                              width: 270,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 16, bottom: 3),
-                                        child: Text(
-                                          snapshot.data![index].title,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            child: Center(
-                                              child: Image.asset(
-                                                'assets/imdbLogo.png',
-                                                height: 25,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 5),
-                                          const Icon(
-                                            Icons.star_rate_rounded,
-                                            size: 28,
-                                            color: Colors.amber,
-                                          ),
-                                          SizedBox(
-                                            height: 25,
-                                            child: Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 6),
-                                                child: Text(
-                                                  snapshot
-                                                      .data![index].imdbRating,
-                                                  style: const TextStyle(
-                                                      fontSize: 20,
-                                                      height: 1,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            ),
+                        final List<ModeloPelicula> movies = snapshot.data ?? [];
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: movies.length,
+                          itemBuilder: (context, index) {
+                            final movie = movies[index];
+                            return Container(
+                                width: 280,
+                                margin:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.0)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        widget.onPeliculaSelected(movie);
+                                        widget.onBodyChanged(3);
+                                      },
+                                      child: Container(
+                                        decoration:
+                                            const BoxDecoration(boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(4, 4),
+                                            blurRadius: 6.5,
+                                            color: Color.fromRGBO(0, 0, 0, 0.5),
                                           )
-                                        ],
+                                        ]),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Image.network(
+                                            movie.verticalPosterURL,
+                                            width: 270,
+                                          ),
+                                        ),
                                       ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                color: const Color.fromRGBO(
-                                                    78, 124, 193, 0.7),
-                                                border: Border.all(
-                                                    width: 2,
-                                                    color: const Color.fromRGBO(
-                                                        0, 79, 197, 1)),
-                                                borderRadius:
-                                                    BorderRadius.circular(6)),
-                                            child: Center(
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        5, 3, 5, 1),
-                                                child: Text(
-                                                  snapshot
-                                                      .data![index].ageRating,
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 16, bottom: 3),
+                                      child: Text(
+                                        movie.title,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          child: Center(
+                                            child: Image.asset(
+                                              'assets/imdbLogo.png',
+                                              height: 25,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 5),
+                                        const Icon(
+                                          Icons.star_rate_rounded,
+                                          size: 28,
+                                          color: Colors.amber,
+                                        ),
+                                        SizedBox(
+                                          height: 25,
+                                          child: Center(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 6),
+                                              child: Text(
+                                                movie.imdbRating,
+                                                style: const TextStyle(
+                                                    fontSize: 20,
+                                                    height: 1,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: Colors.white),
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(width: 10),
-                                          const Icon(
-                                            Icons.slow_motion_video,
-                                            color: Colors.white,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                4, 4, 0, 0),
-                                            child: Text(
-                                                formatTime(snapshot
-                                                    .data![index].runtime),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromRGBO(
+                                                  78, 124, 193, 0.7),
+                                              border: Border.all(
+                                                  width: 2,
+                                                  color: const Color.fromRGBO(
+                                                      0, 79, 197, 1)),
+                                              borderRadius:
+                                                  BorderRadius.circular(6)),
+                                          child: Center(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      5, 3, 5, 1),
+                                              child: Text(
+                                                movie.ageRating,
                                                 style: const TextStyle(
-                                                    fontSize: 16,
                                                     color: Colors.white,
                                                     fontWeight:
-                                                        FontWeight.w600)),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ));
-                            },
-                          );
-                        }
+                                                        FontWeight.w600),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        const Icon(
+                                          Icons.slow_motion_video,
+                                          color: Colors.white,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              4, 4, 0, 0),
+                                          child: Text(formatTime(movie.runtime),
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600)),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ));
+                          },
+                        );
+                        // }
                       },
-                    ),
+                    )
                   ],
                 ),
               ))
