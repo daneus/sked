@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:sked/models/modelo_pelicula.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -27,6 +29,14 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
       } else {
         return '0 m';
       }
+    }
+
+    String formatDate(String dateString) {
+      initializeDateFormatting('es');
+      DateTime date = DateTime.parse(dateString);
+      String formattedDate =
+          DateFormat('d \'de\' MMMM \'de\' y', 'es').format(date);
+      return formattedDate;
     }
 
     return Scaffold(
@@ -164,18 +174,30 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                             ],
                           ),
                         ),
-                        // Row(
-                        //   children: [
-                        //     Icon(
-                        //       Icons.calendar_month,
-                        //       color: Colors.white,
-                        //     ),
-                        //     Padding(
-                        //       padding: const EdgeInsets.only(top: 6),
-                        //       child: Text(widget.modeloPelicula!.releaseDate),
-                        //     )
-                        //   ],
-                        // )
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.calendar_month,
+                              color: Colors.white,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6),
+                              child: Text(
+                                  formatDate(
+                                      widget.modeloPelicula!.releaseDate),
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16)),
+                            )
+                          ],
+                        )
                       ],
                     ),
                   )))
