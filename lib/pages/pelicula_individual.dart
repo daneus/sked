@@ -77,6 +77,14 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                                       fontWeight: FontWeight.w700,
                                       fontSize: 26),
                                 ),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/imdbLogo.png',
+                                      height: 25,
+                                    )
+                                  ],
+                                )
                               ],
                             ),
                           )))
