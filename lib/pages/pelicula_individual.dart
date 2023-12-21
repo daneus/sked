@@ -76,10 +76,13 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                           margin: const EdgeInsets.only(bottom: 5),
                           child: Text(
                             widget.modeloPelicula!.title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 26),
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 24,
+                            ),
                           ),
                         ),
                         Row(
@@ -195,6 +198,66 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16)),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          widget.modeloPelicula!.overview,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 15.5),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              "Dirección:",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 17),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              widget.modeloPelicula!.direction,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 17,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Reparto:",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            const SizedBox(
+                              width: 34,
+                            ),
+                            Expanded(
+                              child: Text(
+                                widget.modeloPelicula!.cast.join(", "),
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontStyle: FontStyle.italic,
+                                    fontSize: 17),
+                              ),
                             )
                           ],
                         )
