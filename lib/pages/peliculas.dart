@@ -344,24 +344,63 @@ class _PeliculasState extends State<Peliculas> {
                                             futureMovie);
                                         widget.onBodyChanged(3);
                                       },
-                                      child: Container(
-                                        decoration:
-                                            const BoxDecoration(boxShadow: [
-                                          BoxShadow(
-                                            offset: Offset(5, 5),
-                                            blurRadius: 10,
-                                            color:
-                                                Color.fromRGBO(0, 0, 0, 0.65),
-                                          )
-                                        ]),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          child: Image.network(
-                                            futureMovie.verticalPosterURL,
-                                            width: 300,
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            decoration:
+                                                const BoxDecoration(boxShadow: [
+                                              BoxShadow(
+                                                offset: Offset(5, 5),
+                                                blurRadius: 10,
+                                                color: Color.fromRGBO(
+                                                    0, 0, 0, 0.65),
+                                              )
+                                            ]),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              child: Image.network(
+                                                futureMovie.verticalPosterURL,
+                                                width: 300,
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                          Positioned(
+                                            top: 20,
+                                            left: -35,
+                                            child: Transform.rotate(
+                                                angle: -45 *
+                                                    (3.141592653589793 / 180),
+                                                child: Container(
+                                                  height: 30,
+                                                  width: 150,
+                                                  decoration: const BoxDecoration(
+                                                      gradient: LinearGradient(
+                                                          colors: [
+                                                        Color.fromARGB(
+                                                            255, 165, 125, 6),
+                                                        Colors.amber
+                                                      ],
+                                                          begin: Alignment
+                                                              .bottomCenter,
+                                                          end: Alignment
+                                                              .topCenter)),
+                                                  child: const Center(
+                                                      child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 3, right: 12),
+                                                    child: Text(
+                                                      "SOON",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize: 20),
+                                                    ),
+                                                  )),
+                                                )),
+                                          )
+                                        ],
                                       ),
                                     ),
                                     Padding(
@@ -395,16 +434,6 @@ class _PeliculasState extends State<Peliculas> {
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 19)),
                                         )
-                                        // Padding(
-                                        //   padding: const EdgeInsets.fromLTRB(
-                                        //       4, 4, 0, 0),
-                                        //   child: Text(
-                                        //       formatTime(futureMovie.runtime),
-                                        //       style: const TextStyle(
-                                        //           fontSize: 16,
-                                        //           color: Colors.white,
-                                        //           fontWeight: FontWeight.w600)),
-                                        // )
                                       ],
                                     )
                                   ],
