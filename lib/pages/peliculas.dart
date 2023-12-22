@@ -1,17 +1,23 @@
 // ignore_for_file: unnecessary_string_escapes
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:sked/main.dart';
+import 'package:sked/models/modelo_futura_pelicula.dart';
 import '../models/modelo_pelicula.dart';
+import 'package:intl/intl.dart';
 
 class Peliculas extends StatefulWidget {
   final Function(int) onBodyChanged;
   final Function(ModeloPelicula) onPeliculaSelected;
+  final Function(ModeloFuturaPelicula) onFuturaPeliculaSelected;
 
-  const Peliculas(
-      {required this.onBodyChanged,
-      required this.onPeliculaSelected,
-      super.key});
+  const Peliculas({
+    required this.onBodyChanged,
+    required this.onPeliculaSelected,
+    required this.onFuturaPeliculaSelected,
+    super.key,
+  });
 
   @override
   State<Peliculas> createState() => _PeliculasState();
@@ -48,6 +54,14 @@ class _PeliculasState extends State<Peliculas> {
       } else {
         return '0 m';
       }
+    }
+
+    String formatDate(String dateString) {
+      initializeDateFormatting('es');
+      DateTime date = DateTime.parse(dateString);
+      String formattedDate =
+          DateFormat('d \'de\' MMMM \'de\' y', 'es').format(date);
+      return formattedDate;
     }
 
     return Material(
@@ -162,9 +176,10 @@ class _PeliculasState extends State<Peliculas> {
                   index: currentTab,
                   children: [
                     FutureBuilder(
-                      future: dataModel.fetchMovies(),
+                      future: dataModel.fetchDataFromAPI(),
                       builder: (context, snapshot) {
-                        final List<ModeloPelicula> movies = snapshot.data ?? [];
+                        final List<ModeloPelicula> movies =
+                            snapshot.data?.cartelera ?? [];
                         return ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: movies.length,
@@ -305,16 +320,17 @@ class _PeliculasState extends State<Peliculas> {
                       },
                     ),
                     FutureBuilder(
-                      future: dataModel.fetchMovies(),
+                      future: dataModel.fetchDataFromAPI(),
                       builder: (context, snapshot) {
-                        final List<ModeloPelicula> movies = snapshot.data ?? [];
+                        final List<ModeloFuturaPelicula> futureMovies =
+                            snapshot.data?.proximamente ?? [];
                         return ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: movies.length,
+                          itemCount: futureMovies.length,
                           itemBuilder: (context, index) {
-                            final movie = movies[index];
+                            final futureMovie = futureMovies[index];
                             return Container(
-                                width: 280,
+                                width: 320,
                                 margin:
                                     const EdgeInsets.only(left: 15, right: 15),
                                 decoration: BoxDecoration(
@@ -324,24 +340,26 @@ class _PeliculasState extends State<Peliculas> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        widget.onPeliculaSelected(movie);
+                                        widget.onFuturaPeliculaSelected(
+                                            futureMovie);
                                         widget.onBodyChanged(3);
                                       },
                                       child: Container(
                                         decoration:
                                             const BoxDecoration(boxShadow: [
                                           BoxShadow(
-                                            offset: Offset(4, 4),
-                                            blurRadius: 6.5,
-                                            color: Color.fromRGBO(0, 0, 0, 0.5),
+                                            offset: Offset(5, 5),
+                                            blurRadius: 10,
+                                            color:
+                                                Color.fromRGBO(0, 0, 0, 0.65),
                                           )
                                         ]),
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(15),
                                           child: Image.network(
-                                            movie.verticalPosterURL,
-                                            width: 270,
+                                            futureMovie.verticalPosterURL,
+                                            width: 300,
                                           ),
                                         ),
                                       ),
@@ -350,94 +368,43 @@ class _PeliculasState extends State<Peliculas> {
                                       padding: const EdgeInsets.only(
                                           top: 16, bottom: 3),
                                       child: Text(
-                                        movie.title,
+                                        futureMovie.title,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
-                                            fontSize: 22,
+                                            fontSize: 28,
                                             fontWeight: FontWeight.w700,
                                             color: Colors.white),
                                       ),
                                     ),
                                     Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(
-                                          child: Center(
-                                            child: Image.asset(
-                                              'assets/imdbLogo.png',
-                                              height: 25,
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 5),
                                         const Icon(
-                                          Icons.star_rate_rounded,
-                                          size: 28,
-                                          color: Colors.amber,
-                                        ),
-                                        SizedBox(
-                                          height: 25,
-                                          child: Center(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.only(top: 6),
-                                              child: Text(
-                                                movie.imdbRating,
-                                                style: const TextStyle(
-                                                    fontSize: 20,
-                                                    height: 1,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              color: const Color.fromRGBO(
-                                                  78, 124, 193, 0.7),
-                                              border: Border.all(
-                                                  width: 2,
-                                                  color: const Color.fromRGBO(
-                                                      0, 79, 197, 1)),
-                                              borderRadius:
-                                                  BorderRadius.circular(6)),
-                                          child: Center(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      5, 3, 5, 1),
-                                              child: Text(
-                                                movie.ageRating,
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        const Icon(
-                                          Icons.slow_motion_video,
+                                          Icons.calendar_month,
                                           color: Colors.white,
                                         ),
+                                        const SizedBox(width: 5),
                                         Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              4, 4, 0, 0),
-                                          child: Text(formatTime(movie.runtime),
+                                          padding:
+                                              const EdgeInsets.only(top: 6),
+                                          child: Text(
+                                              formatDate(
+                                                  futureMovie.releaseDate),
                                               style: const TextStyle(
-                                                  fontSize: 16,
                                                   color: Colors.white,
-                                                  fontWeight: FontWeight.w600)),
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 19)),
                                         )
+                                        // Padding(
+                                        //   padding: const EdgeInsets.fromLTRB(
+                                        //       4, 4, 0, 0),
+                                        //   child: Text(
+                                        //       formatTime(futureMovie.runtime),
+                                        //       style: const TextStyle(
+                                        //           fontSize: 16,
+                                        //           color: Colors.white,
+                                        //           fontWeight: FontWeight.w600)),
+                                        // )
                                       ],
                                     )
                                   ],

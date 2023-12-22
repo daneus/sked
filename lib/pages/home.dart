@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sked/models/modelo_futura_pelicula.dart';
 import 'package:sked/models/modelo_pelicula.dart';
 import 'package:sked/pages/custom_navigation_bar.dart';
 import 'package:sked/pages/funciones.dart';
 import 'package:sked/pages/funciones_pasadas.dart';
+import 'package:sked/pages/futura_pelicula_individual.dart';
 import 'package:sked/pages/pelicula_individual.dart';
 import 'package:sked/pages/peliculas.dart';
 
@@ -25,16 +27,25 @@ class _HomeState extends State<Home> {
       Peliculas(
         onBodyChanged: navigateBottomBar,
         onPeliculaSelected: handleModeloPelicula,
+        onFuturaPeliculaSelected: handleModeloFuturaPelicula,
       ),
       const Funciones(),
       const FuncionesPasadas(),
-      const PeliculaIndividual(modeloPelicula: null),
+      const PeliculaIndividual(),
     ];
   }
 
   void handleModeloPelicula(ModeloPelicula peliculaSeleccionada) {
     setState(() {
       _pages[3] = PeliculaIndividual(modeloPelicula: peliculaSeleccionada);
+    });
+  }
+
+  void handleModeloFuturaPelicula(
+      ModeloFuturaPelicula futuraPeliculaSeleccionada) {
+    setState(() {
+      _pages[3] = FuturaPeliculaIndividual(
+          modeloFuturaPelicula: futuraPeliculaSeleccionada);
     });
   }
 

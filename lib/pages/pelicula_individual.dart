@@ -7,7 +7,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 class PeliculaIndividual extends StatefulWidget {
   final ModeloPelicula? modeloPelicula;
 
-  const PeliculaIndividual({required this.modeloPelicula, super.key});
+  const PeliculaIndividual({this.modeloPelicula, super.key});
 
   @override
   State<PeliculaIndividual> createState() => _PeliculaIndividualState();

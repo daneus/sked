@@ -2,38 +2,54 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sked/models/modelo_api_data.dart';
+import 'package:sked/models/modelo_futura_pelicula.dart';
 import 'package:sked/models/modelo_pelicula.dart';
 import 'package:http/http.dart' as http;
 import 'package:sked/pages/home.dart';
 
 class DataModel extends ChangeNotifier {
-  List<ModeloPelicula>? _data;
-  List<ModeloPelicula>? get data => _data;
+  ModeloAPIData? _data;
+  ModeloAPIData? get data => _data;
 
   List<ModeloPelicula> parseMovies(String responseBody) {
     List<dynamic> jsonData = json.decode(responseBody);
     return jsonData.map((json) => ModeloPelicula.fromJson(json)).toList();
   }
 
-  Future<List<ModeloPelicula>> fetchMovies() async {
+  List<ModeloFuturaPelicula> parseFutureMovies(String responseBody) {
+    List<dynamic> jsonData = json.decode(responseBody);
+    return jsonData.map((json) => ModeloFuturaPelicula.fromJson(json)).toList();
+  }
+
+  Future<ModeloAPIData> fetchDataFromAPI() async {
     try {
       if (_data != null) {
         return _data!;
       }
-
-      final response =
+      _data = ModeloAPIData();
+      final responseMovies =
+          await http.get(Uri.parse('http://192.168.18.12:3000/cartelera'));
+      final responseFutureMovies =
+          await http.get(Uri.parse('http://192.168.18.12:3000/proximamente'));
+      final responseFunctions =
           await http.get(Uri.parse('http://192.168.18.12:3000/cartelera'));
 
-      if (response.statusCode == 200) {
-        _data = List.of(parseMovies(response.body));
+      if (responseMovies.statusCode == 200 &&
+          responseFutureMovies.statusCode == 200 &&
+          responseFunctions.statusCode == 200) {
+        _data!.cartelera = List.of(parseMovies(responseMovies.body));
+        _data!.proximamente =
+            List.of(parseFutureMovies(responseFutureMovies.body));
+
         notifyListeners();
         return _data!;
       } else {
         throw Exception(
-            'Failed to retrieve movies! Status code: ${response.statusCode}');
+            'Failed to retrieve movies! Status code: ${responseMovies.statusCode}');
       }
     } catch (error) {
-      throw Exception('Error fetching movies: $error');
+      throw Exception('Error fetching movies xdd: $error');
     }
   }
 }
@@ -50,7 +66,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: FutureBuilder(
-        future: Provider.of<DataModel>(context, listen: false).fetchMovies(),
+        future:
+            Provider.of<DataModel>(context, listen: false).fetchDataFromAPI(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
@@ -86,7 +103,7 @@ class _MyAppState extends State<MyApp> {
                 )));
           } else if (snapshot.hasError) {
             return Text("Error XD: ${snapshot.error}");
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          } else if (!snapshot.hasData) {
             return const Text("No data available!");
           } else {
             return const Home();
