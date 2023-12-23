@@ -59,7 +59,6 @@ class _FuncionesState extends State<Funciones> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
       body: Container(
         constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
