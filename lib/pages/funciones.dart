@@ -110,7 +110,7 @@ class _FuncionesState extends State<Funciones> {
                       final function = functions[index];
                       return Container(
                         margin: const EdgeInsets.only(left: 25, right: 25),
-                        height: 110,
+                        height: 115,
                         decoration: BoxDecoration(
                             gradient: const LinearGradient(
                                 colors: [
@@ -144,7 +144,7 @@ class _FuncionesState extends State<Funciones> {
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 12),
+                                          fontSize: 13),
                                     ),
                                   ),
                                 ),
@@ -187,7 +187,7 @@ class _FuncionesState extends State<Funciones> {
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.w700,
-                                            fontSize: 20),
+                                            fontSize: 18),
                                       ),
                                     ),
                                     function.format == "IMAX"
@@ -203,7 +203,7 @@ class _FuncionesState extends State<Funciones> {
                                                 width: 60,
                                                 child: Padding(
                                                   padding:
-                                                      const EdgeInsets.all(4),
+                                                      const EdgeInsets.all(5),
                                                   child: Image.asset(
                                                     'assets/imaxLogo.png',
                                                     width: 30,
@@ -242,19 +242,19 @@ class _FuncionesState extends State<Funciones> {
                                     const Icon(
                                       Icons.location_on_rounded,
                                       color: Colors.white,
-                                      size: 22,
+                                      size: 20,
                                     ),
                                     const SizedBox(
                                       width: 3,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 5),
+                                      padding: const EdgeInsets.only(top: 4),
                                       child: Text(
                                         function.cinema,
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w600,
                                             color: Colors.white,
-                                            fontSize: 16.5),
+                                            fontSize: 14.5),
                                       ),
                                     )
                                   ],
@@ -264,7 +264,7 @@ class _FuncionesState extends State<Funciones> {
                                     const Icon(
                                       Icons.watch_later_outlined,
                                       color: Colors.white,
-                                      size: 22,
+                                      size: 20,
                                     ),
                                     const SizedBox(
                                       width: 4,
@@ -274,7 +274,7 @@ class _FuncionesState extends State<Funciones> {
                                       child: Text(function.functionTime,
                                           style: const TextStyle(
                                               fontWeight: FontWeight.w700,
-                                              fontSize: 16,
+                                              fontSize: 14,
                                               color: Colors.white)),
                                     )
                                   ],
