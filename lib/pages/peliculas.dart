@@ -352,7 +352,7 @@ class _PeliculasState extends State<Peliculas> {
                                       child: Stack(
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 bottom: 15, right: 15),
                                             child: Container(
                                               decoration: BoxDecoration(

@@ -1,0 +1,19 @@
+FutureBuilder(
+          future: dataModel.fetchDataFromAPI(),
+          builder: (context, snapshot) {
+            final List<ModeloFuncion> functions =
+                snapshot.data?.funciones ?? [];
+            return ListView.builder(
+              itemCount: functions.length,
+              itemBuilder: (context, index) {
+                final function = functions[index];
+                return GestureDetector(
+                    onTap: () {
+                      widget.onBodyChanged(4);
+                      widget.onFuncionSelected(function);
+                    },
+                    child: Text(function.title));
+              },
+            );
+          },
+        )
