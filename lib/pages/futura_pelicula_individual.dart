@@ -38,8 +38,8 @@ class _FuturaPeliculaIndividualState extends State<FuturaPeliculaIndividual> {
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   colors: [
-                    Color.fromRGBO(4, 102, 141, 1),
-                    Color.fromRGBO(7, 73, 99, 0.432),
+                    Color.fromRGBO(75, 4, 141, 1),
+                    Color.fromRGBO(42, 9, 73, 0.493),
                     Colors.transparent
                   ],
                   stops: <double>[

@@ -187,9 +187,10 @@ class _PeliculasState extends State<Peliculas> {
                           itemBuilder: (context, index) {
                             final movie = movies[index];
                             return Container(
-                                width: 280,
-                                margin:
-                                    const EdgeInsets.only(left: 15, right: 15),
+                                width: 270,
+                                margin: EdgeInsets.only(
+                                    left: 25,
+                                    right: index == movies.length - 1 ? 25 : 5),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15.0)),
                                 child: Column(
@@ -204,9 +205,10 @@ class _PeliculasState extends State<Peliculas> {
                                         decoration:
                                             const BoxDecoration(boxShadow: [
                                           BoxShadow(
-                                            offset: Offset(4, 4),
-                                            blurRadius: 6.5,
-                                            color: Color.fromRGBO(0, 0, 0, 0.5),
+                                            offset: Offset(5, 5),
+                                            blurRadius: 9.5,
+                                            color:
+                                                Color.fromRGBO(0, 0, 0, 0.65),
                                           )
                                         ]),
                                         child: ClipRRect(
@@ -330,11 +332,14 @@ class _PeliculasState extends State<Peliculas> {
                           itemBuilder: (context, index) {
                             final futureMovie = futureMovies[index];
                             return Container(
-                                width: 320,
-                                margin:
-                                    const EdgeInsets.only(left: 15, right: 15),
+                                width: 295,
+                                margin: EdgeInsets.only(
+                                    left: 25,
+                                    right: index == futureMovies.length - 1
+                                        ? 15
+                                        : 5),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0)),
+                                    borderRadius: BorderRadius.circular(15)),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -346,22 +351,29 @@ class _PeliculasState extends State<Peliculas> {
                                       },
                                       child: Stack(
                                         children: [
-                                          Container(
-                                            decoration:
-                                                const BoxDecoration(boxShadow: [
-                                              BoxShadow(
-                                                offset: Offset(5, 5),
-                                                blurRadius: 10,
-                                                color: Color.fromRGBO(
-                                                    0, 0, 0, 0.65),
-                                              )
-                                            ]),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              child: Image.network(
-                                                futureMovie.verticalPosterURL,
-                                                width: 300,
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                bottom: 15, right: 15),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      offset: Offset(5, 5),
+                                                      blurRadius: 9.5,
+                                                      color: Color.fromRGBO(
+                                                          0, 0, 0, 0.65),
+                                                    )
+                                                  ],
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15)),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                child: Image.network(
+                                                  futureMovie.verticalPosterURL,
+                                                  width: 295,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -388,14 +400,14 @@ class _PeliculasState extends State<Peliculas> {
                                                   child: const Center(
                                                       child: Padding(
                                                     padding: EdgeInsets.only(
-                                                        top: 3, right: 12),
+                                                        top: 5, right: 7),
                                                     child: Text(
-                                                      "SOON",
+                                                      "PRONTO",
                                                       style: TextStyle(
                                                           color: Colors.black,
                                                           fontWeight:
                                                               FontWeight.w700,
-                                                          fontSize: 20),
+                                                          fontSize: 18),
                                                     ),
                                                   )),
                                                 )),
@@ -405,7 +417,7 @@ class _PeliculasState extends State<Peliculas> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 16, bottom: 3),
+                                          top: 15, bottom: 3),
                                       child: Text(
                                         futureMovie.title,
                                         maxLines: 1,
@@ -432,7 +444,8 @@ class _PeliculasState extends State<Peliculas> {
                                               style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.w600,
-                                                  fontSize: 19)),
+                                                  fontSize: 19,
+                                                  fontStyle: FontStyle.italic)),
                                         )
                                       ],
                                     )
@@ -440,7 +453,6 @@ class _PeliculasState extends State<Peliculas> {
                                 ));
                           },
                         );
-                        // }
                       },
                     )
                   ],
