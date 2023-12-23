@@ -26,6 +26,7 @@ class Peliculas extends StatefulWidget {
 class _PeliculasState extends State<Peliculas> {
   List<String> tabs = ["En cartelera", "Próximamente"];
   int currentTab = 0;
+
   List<double> changePositionAndWidthOfLine() {
     switch (currentTab) {
       case 0:
@@ -316,7 +317,6 @@ class _PeliculasState extends State<Peliculas> {
                                 ));
                           },
                         );
-                        // }
                       },
                     ),
                     FutureBuilder(
