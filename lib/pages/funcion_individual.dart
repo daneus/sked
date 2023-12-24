@@ -56,33 +56,35 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                         1
                       ])),
                 ),
-                Column(
-                  children: [
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      child: ShaderMask(
-                        shaderCallback: (Rect bounds) {
-                          return const LinearGradient(
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
-                                  colors: [Colors.transparent, Colors.black])
-                              .createShader(bounds);
-                        },
-                        blendMode: BlendMode.dstIn,
-                        child: Image.network(widget.modeloFuncion!.backdropURL,
-                            fit: BoxFit.cover, loadingBuilder:
-                                (BuildContext context, Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                          if (loadingProgress == null) {
-                            _isImageLoaded = true;
-                          }
-                          return child;
-                        }),
-                      ),
-                    ),
-                  ],
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: ShaderMask(
+                    shaderCallback: (Rect bounds) {
+                      return const LinearGradient(
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
+                              colors: [Colors.transparent, Colors.black])
+                          .createShader(bounds);
+                    },
+                    blendMode: BlendMode.dstIn,
+                    child: Image.network(widget.modeloFuncion!.backdropURL,
+                        fit: BoxFit.cover, loadingBuilder:
+                            (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        _isImageLoaded = true;
+                      }
+                      return child;
+                    }),
+                  ),
+                ),
+                Positioned(
+                  top: 250,
+                  right: 0,
+                  left: 0,
+                  child: Text("LULE"),
                 )
               ])
             : Container(
