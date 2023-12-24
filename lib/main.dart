@@ -36,11 +36,11 @@ class DataModel extends ChangeNotifier {
       _data = ModeloAPIData();
 
       final responseMovies =
-          await http.get(Uri.parse('http://192.168.18.12:3000/cartelera'));
+          await http.get(Uri.parse('http://192.168.18.12:3333/cartelera'));
       final responseFutureMovies =
-          await http.get(Uri.parse('http://192.168.18.12:3000/proximamente'));
+          await http.get(Uri.parse('http://192.168.18.12:3333/proximamente'));
       final responseFunctions =
-          await http.get(Uri.parse('http://192.168.18.12:3000/funciones'));
+          await http.get(Uri.parse('http://192.168.18.12:3333/funciones'));
 
       if (responseMovies.statusCode == 200 &&
           responseFutureMovies.statusCode == 200 &&

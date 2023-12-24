@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:sked/models/mode_funcion.dart';
+import 'package:http/http.dart' as http;
 
 class FuncionIndividual extends StatefulWidget {
   final ModeloFuncion? modeloFuncion;
@@ -69,6 +70,31 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
       String formattedDate =
           DateFormat('d \'de\' MMMM \'de\' y', 'es').format(date);
       return formattedDate;
+    }
+
+    Future<void> uploadFile(File file) async {
+      var url = Uri.parse('http://192.168.18.12:3333/subirVisita');
+      var request = http.MultipartRequest('POST', url);
+
+      var stream = http.ByteStream.fromBytes(file.readAsBytesSync());
+      var length = await file.length();
+
+      var multipartFile = http.MultipartFile('file', stream, length,
+          filename: file.path.split('/').last);
+
+      request.files.add(multipartFile);
+
+      try {
+        var response = await request.send();
+
+        if (response.statusCode == 200) {
+          print('File uploaded successfully');
+        } else {
+          print('Failed to upload file. Status code: ${response.statusCode}');
+        }
+      } catch (error) {
+        print('Error uploading file: $error');
+      }
     }
 
     return Scaffold(
@@ -434,48 +460,54 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                               ),
                               Align(
                                 alignment: Alignment.center,
-                                child: Container(
-                                    height: 50,
-                                    width: 280,
-                                    decoration: BoxDecoration(
-                                        gradient: const LinearGradient(
-                                            colors: [
-                                              Color.fromRGBO(0, 47, 90, 1),
-                                              Color.fromRGBO(53, 175, 116, 1)
-                                            ],
-                                            begin: Alignment.bottomCenter,
-                                            end: Alignment.topCenter),
-                                        borderRadius: BorderRadius.circular(14),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                              offset: Offset(4, 4),
-                                              blurRadius: 4,
-                                              color:
-                                                  Color.fromRGBO(0, 0, 0, 0.35))
-                                        ]),
-                                    child: const Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.done_rounded,
-                                          color: Colors.white,
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 6),
-                                          child: Text(
-                                            "Marcar como finalizada",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    uploadFile(imageFile!);
+                                  },
+                                  child: Container(
+                                      height: 50,
+                                      width: 280,
+                                      decoration: BoxDecoration(
+                                          gradient: const LinearGradient(
+                                              colors: [
+                                                Color.fromRGBO(0, 47, 90, 1),
+                                                Color.fromRGBO(53, 175, 116, 1)
+                                              ],
+                                              begin: Alignment.bottomCenter,
+                                              end: Alignment.topCenter),
+                                          borderRadius:
+                                              BorderRadius.circular(14),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                                offset: Offset(4, 4),
+                                                blurRadius: 4,
+                                                color: Color.fromRGBO(
+                                                    0, 0, 0, 0.35))
+                                          ]),
+                                      child: const Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.done_rounded,
+                                            color: Colors.white,
                                           ),
-                                        )
-                                      ],
-                                    )),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 6),
+                                            child: Text(
+                                              "Marcar como finalizada",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 18),
+                                            ),
+                                          )
+                                        ],
+                                      )),
+                                ),
                               )
                             ],
                           ),
