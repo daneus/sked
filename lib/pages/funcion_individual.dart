@@ -1,6 +1,9 @@
 // ignore_for_file: unnecessary_string_escapes
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:sked/models/mode_funcion.dart';
@@ -16,6 +19,7 @@ class FuncionIndividual extends StatefulWidget {
 class _FuncionIndividualState extends State<FuncionIndividual> {
   ImageStream? _imageStream;
   bool _isImageLoaded = false;
+  File? imageFile;
 
   @override
   void initState() {
@@ -30,6 +34,16 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
         _isImageLoaded = true;
       });
     }));
+  }
+
+  void _chooseImage() async {
+    final imagePicker = ImagePicker();
+    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        imageFile = File(pickedFile.path);
+      }
+    });
   }
 
   @override
@@ -363,46 +377,55 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                               ),
                               Align(
                                 alignment: Alignment.center,
-                                child: Container(
-                                  height: 50,
-                                  width: 280,
-                                  decoration: BoxDecoration(
-                                      gradient: const LinearGradient(
-                                          colors: [
-                                            Color.fromRGBO(1, 136, 144, 1),
-                                            Color.fromRGBO(72, 38, 170, 1)
-                                          ],
-                                          begin: Alignment.bottomCenter,
-                                          end: Alignment.topCenter),
-                                      borderRadius: BorderRadius.circular(14),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                            offset: Offset(4, 4),
-                                            blurRadius: 4,
-                                            color:
-                                                Color.fromRGBO(0, 0, 0, 0.35))
-                                      ]),
-                                  child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.camera,
-                                        color: Colors.white,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(top: 6),
-                                        child: Text(
-                                          "Tomar foto",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    _chooseImage();
+                                  },
+                                  child: Container(
+                                    height: 50,
+                                    width: 280,
+                                    decoration: BoxDecoration(
+                                        gradient: const LinearGradient(
+                                            colors: [
+                                              Color.fromRGBO(1, 136, 144, 1),
+                                              Color.fromRGBO(72, 38, 170, 1)
+                                            ],
+                                            begin: Alignment.bottomCenter,
+                                            end: Alignment.topCenter),
+                                        borderRadius: BorderRadius.circular(14),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              offset: Offset(4, 4),
+                                              blurRadius: 4,
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 0.35))
+                                        ]),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          Icons.camera,
+                                          color: Colors.white,
                                         ),
-                                      )
-                                    ],
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 6),
+                                          child: Text(
+                                            imageFile == null
+                                                ? "Cargar foto"
+                                                : "Foto cargada!",
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
