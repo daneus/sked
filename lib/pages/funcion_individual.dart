@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_escapes
+
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -106,7 +108,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                   ),
                 ),
                 Positioned(
-                  top: 250,
+                  top: 215,
                   right: 0,
                   left: 0,
                   child: Column(
@@ -127,7 +129,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                           ],
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 8,
                         ),
                         const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -136,14 +138,11 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                               "Detalles de función",
                               style: TextStyle(
                                   color: Colors.yellow,
-                                  fontSize: 36,
+                                  fontSize: 32,
                                   fontWeight: FontWeight.w600,
                                   fontStyle: FontStyle.italic),
                             )
                           ],
-                        ),
-                        const SizedBox(
-                          height: 10,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -160,7 +159,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                           ],
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 25,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -171,7 +170,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                 widget.modeloFuncion!.title,
                                 style: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 26,
+                                    fontSize: 24,
                                     fontWeight: FontWeight.w700),
                               ),
                               Row(
@@ -358,6 +357,102 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                             fontWeight: FontWeight.w600)),
                                   )
                                 ],
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Container(
+                                  height: 50,
+                                  width: 280,
+                                  decoration: BoxDecoration(
+                                      gradient: const LinearGradient(
+                                          colors: [
+                                            Color.fromRGBO(1, 136, 144, 1),
+                                            Color.fromRGBO(72, 38, 170, 1)
+                                          ],
+                                          begin: Alignment.bottomCenter,
+                                          end: Alignment.topCenter),
+                                      borderRadius: BorderRadius.circular(14),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                            offset: Offset(4, 4),
+                                            blurRadius: 4,
+                                            color:
+                                                Color.fromRGBO(0, 0, 0, 0.35))
+                                      ]),
+                                  child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.camera,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 6),
+                                        child: Text(
+                                          "Tomar foto",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Container(
+                                    height: 50,
+                                    width: 280,
+                                    decoration: BoxDecoration(
+                                        gradient: const LinearGradient(
+                                            colors: [
+                                              Color.fromRGBO(0, 47, 90, 1),
+                                              Color.fromRGBO(53, 175, 116, 1)
+                                            ],
+                                            begin: Alignment.bottomCenter,
+                                            end: Alignment.topCenter),
+                                        borderRadius: BorderRadius.circular(14),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              offset: Offset(4, 4),
+                                              blurRadius: 4,
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 0.35))
+                                        ]),
+                                    child: const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.done_rounded,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 6),
+                                          child: Text(
+                                            "Marcar como finalizada",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18),
+                                          ),
+                                        )
+                                      ],
+                                    )),
                               )
                             ],
                           ),
