@@ -103,202 +103,243 @@ class _FuncionesState extends State<Funciones> {
                 builder: (context, snapshot) {
                   final List<ModeloFuncion> functions =
                       snapshot.data?.funciones ?? [];
-                  return ListView.builder(
-                    itemCount: functions.length,
-                    itemBuilder: (context, index) {
-                      final function = functions[index];
-                      return GestureDetector(
-                        onTap: () {
-                          widget.onBodyChanged(4);
-                          widget.onFuncionSelected(function);
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 25, right: 25),
-                          height: 115,
-                          decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                  colors: [
-                                    Color.fromRGBO(0, 133, 124, 1),
-                                    Color.fromRGBO(0, 93, 160, 1)
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter),
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: const [
-                                BoxShadow(
-                                    offset: Offset(3, 3),
-                                    blurRadius: 6,
-                                    color: Color.fromRGBO(0, 0, 0, 0.45))
-                              ]),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 20),
-                            child: Row(children: [
-                              SizedBox(
-                                width: 80,
-                                height: 80,
-                                child: Stack(children: [
-                                  Image.asset('assets/calendar.png'),
-                                  Positioned(
-                                    left: 0,
-                                    right: 0,
-                                    top: 12,
-                                    child: Center(
-                                      child: Text(
-                                        getMonthAndDay(
-                                            function.functionDate)[0],
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 13),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    left: 14,
-                                    right: 14,
-                                    bottom: 13,
-                                    child: Container(
-                                      color: const Color.fromRGBO(
-                                          236, 240, 241, 1),
-                                      width: 60,
-                                      height: 35,
-                                      child: Center(
-                                          child: Text(
-                                        getMonthAndDay(
-                                            function.functionDate)[1],
-                                        style: const TextStyle(
-                                            fontSize: 30.5,
-                                            fontWeight: FontWeight.w600,
-                                            letterSpacing: -1),
-                                      )),
-                                    ),
-                                  )
-                                ]),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                  child: Column(
+                  return functions.isEmpty
+                      ? Padding(
+                          padding: const EdgeInsets.only(bottom: 40),
+                          child: Container(
+                            constraints: const BoxConstraints.expand(),
+                            child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          function.title,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 18),
+                                  Text(
+                                    "¡No hay futuras funciones!",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 26,
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Icon(
+                                    Icons.notifications_off_rounded,
+                                    color: Colors.white,
+                                    size: 60,
+                                  )
+                                ]),
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: functions.length,
+                          itemBuilder: (context, index) {
+                            final function = functions[index];
+                            return GestureDetector(
+                              onTap: () {
+                                widget.onBodyChanged(4);
+                                widget.onFuncionSelected(function);
+                              },
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.only(left: 25, right: 25),
+                                height: 115,
+                                decoration: BoxDecoration(
+                                    gradient: const LinearGradient(
+                                        colors: [
+                                          Color.fromRGBO(0, 133, 124, 1),
+                                          Color.fromRGBO(0, 93, 160, 1)
+                                        ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter),
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          offset: Offset(3, 3),
+                                          blurRadius: 6,
+                                          color: Color.fromRGBO(0, 0, 0, 0.45))
+                                    ]),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 20),
+                                  child: Row(children: [
+                                    SizedBox(
+                                      width: 80,
+                                      height: 80,
+                                      child: Stack(children: [
+                                        Image.asset('assets/calendar.png'),
+                                        Positioned(
+                                          left: 0,
+                                          right: 0,
+                                          top: 12,
+                                          child: Center(
+                                            child: Text(
+                                              getMonthAndDay(
+                                                  function.functionDate)[0],
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 13),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 7,
-                                      ),
-                                      function.format == "IMAX"
-                                          ? Padding(
-                                              padding:
-                                                  const EdgeInsets.only(top: 4),
-                                              child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            3),
+                                        Positioned(
+                                          left: 14,
+                                          right: 14,
+                                          bottom: 13,
+                                          child: Container(
+                                            color: const Color.fromRGBO(
+                                                236, 240, 241, 1),
+                                            width: 60,
+                                            height: 35,
+                                            child: Center(
+                                                child: Text(
+                                              getMonthAndDay(
+                                                  function.functionDate)[1],
+                                              style: const TextStyle(
+                                                  fontSize: 30.5,
+                                                  fontWeight: FontWeight.w600,
+                                                  letterSpacing: -1),
+                                            )),
+                                          ),
+                                        )
+                                      ]),
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                        child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                function.title,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
                                                     color: Colors.white,
-                                                  ),
-                                                  width: 60,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(5),
-                                                    child: Image.asset(
-                                                      'assets/imaxLogo.png',
-                                                      width: 30,
-                                                    ),
-                                                  )),
-                                            )
-                                          : Container(
-                                              decoration: BoxDecoration(
-                                                  color: const Color.fromRGBO(
-                                                      78, 124, 193, 0.7),
-                                                  border: Border.all(
-                                                      width: 2,
-                                                      color:
-                                                          const Color.fromRGBO(
-                                                              0, 79, 197, 1)),
-                                                  borderRadius:
-                                                      BorderRadius.circular(6)),
-                                              child: Center(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          5, 3, 5, 1),
-                                                  child: Text(
-                                                    function.format,
-                                                    style: const TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
-                                                ),
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 18),
                                               ),
                                             ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.location_on_rounded,
-                                        color: Colors.white,
-                                        size: 20,
-                                      ),
-                                      const SizedBox(
-                                        width: 3,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
-                                        child: Text(
-                                          function.cinema,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.white,
-                                              fontSize: 14.5),
+                                            const SizedBox(
+                                              width: 7,
+                                            ),
+                                            function.format == "IMAX"
+                                                ? Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 4),
+                                                    child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(3),
+                                                          color: Colors.white,
+                                                        ),
+                                                        width: 60,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(5),
+                                                          child: Image.asset(
+                                                            'assets/imaxLogo.png',
+                                                            width: 30,
+                                                          ),
+                                                        )),
+                                                  )
+                                                : Container(
+                                                    decoration: BoxDecoration(
+                                                        color: const Color
+                                                            .fromRGBO(
+                                                            78, 124, 193, 0.7),
+                                                        border: Border.all(
+                                                            width: 2,
+                                                            color: const Color
+                                                                .fromRGBO(
+                                                                0, 79, 197, 1)),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(6)),
+                                                    child: Center(
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .fromLTRB(
+                                                                5, 3, 5, 1),
+                                                        child: Text(
+                                                          function.format,
+                                                          style: const TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                          ],
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.watch_later_outlined,
-                                        color: Colors.white,
-                                        size: 20,
-                                      ),
-                                      const SizedBox(
-                                        width: 4,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
-                                        child: Text(function.functionTime,
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 14,
-                                                color: Colors.white)),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ))
-                            ]),
-                          ),
-                        ),
-                      );
-                    },
-                  );
+                                        Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.location_on_rounded,
+                                              color: Colors.white,
+                                              size: 20,
+                                            ),
+                                            const SizedBox(
+                                              width: 3,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 4),
+                                              child: Text(
+                                                function.cinema,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    color: Colors.white,
+                                                    fontSize: 14.5),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.watch_later_outlined,
+                                              color: Colors.white,
+                                              size: 20,
+                                            ),
+                                            const SizedBox(
+                                              width: 4,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 4),
+                                              child: Text(function.functionTime,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 14,
+                                                      color: Colors.white)),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ))
+                                  ]),
+                                ),
+                              ),
+                            );
+                          },
+                        );
                 },
               ),
             )

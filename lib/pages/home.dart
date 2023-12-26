@@ -37,7 +37,7 @@ class _HomeState extends State<Home> {
       ),
       const FuncionesPasadas(),
       const PeliculaIndividual(),
-      const FuncionIndividual()
+      FuncionIndividual(onBodyChanged: navigateBottomBar)
     ];
   }
 
@@ -57,7 +57,10 @@ class _HomeState extends State<Home> {
 
   void handleModeloFuncion(ModeloFuncion funcionSeleccionada) {
     setState(() {
-      _pages[4] = FuncionIndividual(modeloFuncion: funcionSeleccionada);
+      _pages[4] = FuncionIndividual(
+        modeloFuncion: funcionSeleccionada,
+        onBodyChanged: navigateBottomBar,
+      );
     });
   }
 

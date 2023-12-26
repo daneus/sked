@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:sked/main.dart';
 import 'package:sked/models/modelo_funcion.dart';
 import 'package:http/http.dart' as http;
 
@@ -26,7 +28,9 @@ class StarIcon extends StatelessWidget {
 
 class FuncionIndividual extends StatefulWidget {
   final ModeloFuncion? modeloFuncion;
-  const FuncionIndividual({super.key, this.modeloFuncion});
+  final Function(int) onBodyChanged;
+  const FuncionIndividual(
+      {super.key, this.modeloFuncion, required this.onBodyChanged});
 
   @override
   State<FuncionIndividual> createState() => _FuncionIndividualState();
@@ -66,6 +70,8 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
 
   @override
   Widget build(BuildContext context) {
+    final dataModel = Provider.of<DataModel>(context);
+
     String formatTime(int totalMinutes) {
       int hours = totalMinutes ~/ 60;
       int minutes = totalMinutes % 60;
@@ -87,6 +93,14 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
       String formattedDate =
           DateFormat('d \'de\' MMMM \'de\' y', 'es').format(date);
       return formattedDate;
+    }
+
+    Future<void> removeFunction(String title) async {
+      var url =
+          Uri.parse('http://192.168.18.12:3333/eliminarFuncion?titulo=$title');
+      await http.delete(url);
+      dataModel.updateFunctions();
+      widget.onBodyChanged(1);
     }
 
     void addRating() {
@@ -178,7 +192,12 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          _rating == 0 ? {} : {Navigator.pop(context)};
+                          _rating == 0
+                              ? {}
+                              : (() {
+                                  removeFunction(widget.modeloFuncion!.title);
+                                  Navigator.pop(context);
+                                })();
                         },
                         child: Opacity(
                           opacity: _rating == 0 ? 0.35 : 1,

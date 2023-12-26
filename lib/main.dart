@@ -23,6 +23,13 @@ class DataModel extends ChangeNotifier {
     return jsonData.map((json) => ModeloFuturaPelicula.fromJson(json)).toList();
   }
 
+  void updateFunctions() async {
+    final responseFunctions =
+        await http.get(Uri.parse('http://192.168.18.12:3333/funciones'));
+    _data!.funciones = List.of(parseFunctions(responseFunctions.body));
+    notifyListeners();
+  }
+
   List<ModeloFuncion> parseFunctions(String responseBody) {
     List<dynamic> jsonData = json.decode(responseBody);
     return jsonData.map((json) => ModeloFuncion.fromJson(json)).toList();
