@@ -603,56 +603,60 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    // uploadFile(imageFile!);
-                                    addRating();
-                                  },
-                                  child: Container(
-                                      height: 50,
-                                      width: 280,
-                                      decoration: BoxDecoration(
-                                          gradient: const LinearGradient(
-                                              colors: [
-                                                Color.fromRGBO(0, 47, 90, 1),
-                                                Color.fromRGBO(53, 175, 116, 1)
-                                              ],
-                                              begin: Alignment.bottomCenter,
-                                              end: Alignment.topCenter),
-                                          borderRadius:
-                                              BorderRadius.circular(14),
-                                          boxShadow: const [
-                                            BoxShadow(
-                                                offset: Offset(4, 4),
-                                                blurRadius: 4,
-                                                color: Color.fromRGBO(
-                                                    0, 0, 0, 0.35))
-                                          ]),
-                                      child: const Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.done_rounded,
-                                            color: Colors.white,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 6),
-                                            child: Text(
-                                              "Marcar como finalizada",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 18),
+                              Opacity(
+                                opacity: imageFile != null ? 1 : 0.35,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      // uploadFile(imageFile!);
+                                      imageFile != null ? addRating() : {};
+                                    },
+                                    child: Container(
+                                        height: 50,
+                                        width: 280,
+                                        decoration: BoxDecoration(
+                                            gradient: const LinearGradient(
+                                                colors: [
+                                                  Color.fromRGBO(0, 47, 90, 1),
+                                                  Color.fromRGBO(
+                                                      53, 175, 116, 1)
+                                                ],
+                                                begin: Alignment.bottomCenter,
+                                                end: Alignment.topCenter),
+                                            borderRadius:
+                                                BorderRadius.circular(14),
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  offset: Offset(4, 4),
+                                                  blurRadius: 4,
+                                                  color: Color.fromRGBO(
+                                                      0, 0, 0, 0.35))
+                                            ]),
+                                        child: const Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.done_rounded,
+                                              color: Colors.white,
                                             ),
-                                          )
-                                        ],
-                                      )),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 6),
+                                              child: Text(
+                                                "Marcar como finalizada",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 18),
+                                              ),
+                                            )
+                                          ],
+                                        )),
+                                  ),
                                 ),
                               )
                             ],
