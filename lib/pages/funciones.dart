@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sked/main.dart';
-import 'package:sked/models/mode_funcion.dart';
+import 'package:sked/models/modelo_funcion.dart';
 
 class Funciones extends StatefulWidget {
   final Function(int) onBodyChanged;

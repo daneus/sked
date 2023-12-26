@@ -2,7 +2,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sked/models/mode_funcion.dart';
+import 'package:sked/models/modelo_funcion.dart';
 import 'package:sked/models/modelo_api_data.dart';
 import 'package:sked/models/modelo_futura_pelicula.dart';
 import 'package:sked/models/modelo_pelicula.dart';
@@ -28,6 +28,10 @@ class DataModel extends ChangeNotifier {
     return jsonData.map((json) => ModeloFuncion.fromJson(json)).toList();
   }
 
+  List<dynamic> parsePictures(String responseBody) {
+    return json.decode(responseBody);
+  }
+
   Future<ModeloAPIData> fetchDataFromAPI() async {
     try {
       if (_data != null) {
@@ -41,14 +45,18 @@ class DataModel extends ChangeNotifier {
           await http.get(Uri.parse('http://192.168.18.12:3333/proximamente'));
       final responseFunctions =
           await http.get(Uri.parse('http://192.168.18.12:3333/funciones'));
+      final responsePictures =
+          await http.get(Uri.parse('http://192.168.18.12:3333/fotosVisitas'));
 
       if (responseMovies.statusCode == 200 &&
           responseFutureMovies.statusCode == 200 &&
-          responseFunctions.statusCode == 200) {
+          responseFunctions.statusCode == 200 &&
+          responsePictures.statusCode == 200) {
         _data!.cartelera = List.of(parseMovies(responseMovies.body));
         _data!.proximamente =
             List.of(parseFutureMovies(responseFutureMovies.body));
         _data!.funciones = List.of(parseFunctions(responseFunctions.body));
+        _data!.fotosVisitas = parsePictures(responsePictures.body);
 
         notifyListeners();
         return _data!;

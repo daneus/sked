@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:sked/models/mode_funcion.dart';
+import 'package:sked/models/modelo_funcion.dart';
 import 'package:http/http.dart' as http;
 
 class FuncionIndividual extends StatefulWidget {
@@ -73,7 +73,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
     }
 
     Future<void> uploadFile(File file) async {
-      var url = Uri.parse('http://192.168.18.12:3333/subirVisita');
+      var url = Uri.parse('http://192.168.18.12:3333/subirFotoVisita');
       var request = http.MultipartRequest('POST', url);
 
       var stream = http.ByteStream.fromBytes(file.readAsBytesSync());

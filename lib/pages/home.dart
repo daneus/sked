@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sked/models/mode_funcion.dart';
+import 'package:sked/models/modelo_funcion.dart';
 import 'package:sked/models/modelo_futura_pelicula.dart';
 import 'package:sked/models/modelo_pelicula.dart';
 import 'package:sked/pages/custom_navigation_bar.dart';

@@ -196,9 +196,9 @@ class _PeliculasState extends State<Peliculas> {
                           bottom: 0,
                           curve: Curves.fastLinearToSlowEaseIn,
                           left: changePositionAndWidthOfLine()[0],
-                          duration: const Duration(milliseconds: 600),
+                          duration: const Duration(milliseconds: 1200),
                           child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 600),
+                            duration: const Duration(milliseconds: 1200),
                             curve: Curves.fastLinearToSlowEaseIn,
                             width: changePositionAndWidthOfLine()[1],
                             height: 4,
