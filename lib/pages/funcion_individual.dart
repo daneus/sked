@@ -9,6 +9,21 @@ import 'package:intl/intl.dart';
 import 'package:sked/models/modelo_funcion.dart';
 import 'package:http/http.dart' as http;
 
+class StarIcon extends StatelessWidget {
+  final bool filled;
+
+  const StarIcon({super.key, required this.filled});
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      filled ? Icons.star_rounded : Icons.star_border_rounded,
+      color: const Color.fromRGBO(0, 71, 176, 1),
+      size: 35,
+    );
+  }
+}
+
 class FuncionIndividual extends StatefulWidget {
   final ModeloFuncion? modeloFuncion;
   const FuncionIndividual({super.key, this.modeloFuncion});
@@ -21,6 +36,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
   ImageStream? _imageStream;
   bool _isImageLoaded = false;
   File? imageFile;
+  double _rating = 0;
 
   @override
   void initState() {
@@ -72,6 +88,135 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
       return formattedDate;
     }
 
+    void addRating() {
+      showModalBottomSheet(
+        isDismissible: false,
+        context: context,
+        builder: (context) {
+          EdgeInsets padding = MediaQuery.of(context).padding;
+          return Container(
+            width: MediaQuery.sizeOf(context).width,
+            height: 300 + padding.bottom,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(colors: [
+                Color.fromRGBO(37, 53, 194, 1),
+                Color.fromRGBO(152, 89, 211, 1),
+                Color.fromRGBO(212, 72, 72, 1),
+                Color.fromRGBO(214, 148, 49, 1),
+                Color.fromRGBO(0, 160, 210, 1)
+              ], stops: [
+                0,
+                0.234,
+                0.51,
+                0.75,
+                1
+              ], begin: Alignment.bottomLeft, end: Alignment.topRight),
+            ),
+            child: Column(children: [
+              const SizedBox(
+                height: 25,
+              ),
+              const Text(
+                "Califique la película:",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w700),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              StatefulBuilder(
+                builder: (context, setState) {
+                  return Column(
+                    children: [
+                      Stack(
+                        children: [
+                          const Center(
+                            child: Icon(
+                              Icons.star_rounded,
+                              size: 90,
+                              color: Color.fromRGBO(0, 71, 176, 1),
+                            ),
+                          ),
+                          Center(
+                              child: Padding(
+                            padding: const EdgeInsets.only(top: 34),
+                            child: Text(
+                              _rating.toStringAsFixed(0),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 21,
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: -1.5),
+                            ),
+                          )),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          10,
+                          (index) => GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _rating = index + 1;
+                              });
+                            },
+                            child: StarIcon(
+                              filled: index < _rating,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _rating == 0 ? {} : print("Data sent!");
+                        },
+                        child: Opacity(
+                          opacity: _rating == 0 ? 0.35 : 1,
+                          child: Container(
+                            width: 110,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                    colors: [
+                                      Color.fromRGBO(109, 0, 0, 1),
+                                      Color.fromRGBO(255, 0, 0, 1),
+                                    ],
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter),
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      offset: Offset(4, 4),
+                                      blurRadius: 6,
+                                      color: Color.fromRGBO(0, 0, 0, .35))
+                                ]),
+                            child: const Center(
+                                child: Text(
+                              "Enviar",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w600),
+                            )),
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                },
+              )
+            ]),
+          );
+        },
+      );
+    }
+
     Future<void> uploadFile(File file) async {
       var url = Uri.parse('http://192.168.18.12:3333/subirFotoVisita');
       var request = http.MultipartRequest('POST', url);
@@ -88,7 +233,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
         var response = await request.send();
 
         if (response.statusCode == 200) {
-          print('File uploaded successfully');
+          addRating();
         } else {
           print('Failed to upload file. Status code: ${response.statusCode}');
         }
@@ -462,7 +607,8 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                 alignment: Alignment.center,
                                 child: GestureDetector(
                                   onTap: () {
-                                    uploadFile(imageFile!);
+                                    // uploadFile(imageFile!);
+                                    addRating();
                                   },
                                   child: Container(
                                       height: 50,
