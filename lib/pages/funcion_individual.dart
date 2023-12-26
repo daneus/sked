@@ -18,7 +18,7 @@ class StarIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Icon(
       filled ? Icons.star_rounded : Icons.star_border_rounded,
-      color: const Color.fromRGBO(0, 71, 176, 1),
+      color: const Color.fromRGBO(0, 123, 222, 1),
       size: 35,
     );
   }
@@ -100,17 +100,19 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
             width: MediaQuery.sizeOf(context).width,
             height: 300 + padding.bottom,
             decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color.fromRGBO(37, 53, 194, 1),
-                Color.fromRGBO(152, 89, 211, 1),
-                Color.fromRGBO(212, 72, 72, 1),
-                Color.fromRGBO(214, 148, 49, 1),
-                Color.fromRGBO(0, 160, 210, 1)
-              ], stops: [
+              gradient: LinearGradient(colors: <Color>[
+                Color(0xFFFF9900),
+                Color(0xFFBF001D),
+                Color(0xFFA50F3D),
+                Color(0xFF143A6B),
+                Color(0xFF1F5286),
+                Color(0xFF008DFF)
+              ], stops: <double>[
                 0,
-                0.234,
-                0.51,
-                0.75,
+                0.2,
+                0.33,
+                0.7,
+                0.82,
                 1
               ], begin: Alignment.bottomLeft, end: Alignment.topRight),
             ),
@@ -138,7 +140,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                             child: Icon(
                               Icons.star_rounded,
                               size: 90,
-                              color: Color.fromRGBO(0, 71, 176, 1),
+                              color: Color.fromRGBO(0, 123, 222, 1),
                             ),
                           ),
                           Center(
@@ -614,11 +616,13 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                   alignment: Alignment.center,
                                   child: GestureDetector(
                                     onTap: () {
-                                      setState(() {
-                                        isPictureSending = true;
-                                      });
                                       imageFile != null
-                                          ? {uploadFile(imageFile!)}
+                                          ? (() {
+                                              uploadFile(imageFile!);
+                                              setState(() {
+                                                isPictureSending = true;
+                                              });
+                                            })()
                                           : {};
                                     },
                                     child: Container(
