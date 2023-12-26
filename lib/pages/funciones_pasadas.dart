@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sked/main.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class FuncionesPasadas extends StatefulWidget {
   const FuncionesPasadas({super.key});
@@ -24,7 +25,14 @@ class _FuncionesPasadasState extends State<FuncionesPasadas> {
           itemBuilder: (context, index) {
             final picture = pictures[index];
             return Container(
-                width: 300, height: 100, child: Image.network(picture));
+              width: 300,
+              height: 100,
+              child: CachedNetworkImage(
+                imageUrl: picture,
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
+            );
           },
         );
       },
