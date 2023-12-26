@@ -34,7 +34,7 @@ class FuncionIndividual extends StatefulWidget {
 
 class _FuncionIndividualState extends State<FuncionIndividual> {
   ImageStream? _imageStream;
-  bool _isImageLoaded = false;
+  bool _isBackdropLoaded = false;
   File? imageFile;
   double _rating = 0;
   bool isPictureSending = false;
@@ -49,7 +49,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
     _imageStream!.addListener(
         ImageStreamListener((ImageInfo image, bool synchronousCall) {
       setState(() {
-        _isImageLoaded = true;
+        _isBackdropLoaded = true;
       });
     }));
   }
@@ -248,7 +248,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
     }
 
     return Scaffold(
-        body: _isImageLoaded
+        body: _isBackdropLoaded
             ? Stack(children: [
                 Container(
                   constraints: const BoxConstraints.expand(),
@@ -291,7 +291,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                             (BuildContext context, Widget child,
                                 ImageChunkEvent? loadingProgress) {
                       if (loadingProgress == null) {
-                        _isImageLoaded = true;
+                        _isBackdropLoaded = true;
                       }
                       return child;
                     }),

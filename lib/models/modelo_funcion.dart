@@ -8,6 +8,7 @@ class ModeloFuncion {
   final String cinema;
   final List<dynamic> seats;
   final String screen;
+  final List<dynamic> genres;
 
   ModeloFuncion(
       {required this.backdropURL,
@@ -18,7 +19,8 @@ class ModeloFuncion {
       required this.functionTime,
       required this.cinema,
       required this.seats,
-      required this.screen});
+      required this.screen,
+      required this.genres});
 
   factory ModeloFuncion.fromJson(Map<String, dynamic> json) {
     return ModeloFuncion(
@@ -30,6 +32,7 @@ class ModeloFuncion {
         functionTime: json['functionTime'],
         cinema: json['cinema'],
         seats: json['seats'],
-        screen: json['screen']);
+        screen: json['screen'],
+        genres: json['genres']);
   }
 }
