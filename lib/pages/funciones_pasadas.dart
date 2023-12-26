@@ -24,14 +24,10 @@ class _FuncionesPasadasState extends State<FuncionesPasadas> {
           itemCount: pictures.length,
           itemBuilder: (context, index) {
             final picture = pictures[index];
-            return Container(
-              width: 300,
-              height: 100,
-              child: CachedNetworkImage(
-                imageUrl: picture,
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => Icon(Icons.error),
-              ),
+            return CachedNetworkImage(
+              imageUrl: picture,
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             );
           },
         );
