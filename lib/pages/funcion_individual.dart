@@ -37,6 +37,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
   bool _isImageLoaded = false;
   File? imageFile;
   double _rating = 0;
+  bool isPictureSending = false;
 
   @override
   void initState() {
@@ -91,6 +92,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
     void addRating() {
       showModalBottomSheet(
         isDismissible: false,
+        enableDrag: false,
         context: context,
         builder: (context) {
           EdgeInsets padding = MediaQuery.of(context).padding;
@@ -174,7 +176,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          _rating == 0 ? {} : print("Data sent!");
+                          _rating == 0 ? {} : {Navigator.pop(context)};
                         },
                         child: Opacity(
                           opacity: _rating == 0 ? 0.35 : 1,
@@ -233,6 +235,9 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
         var response = await request.send();
 
         if (response.statusCode == 200) {
+          setState(() {
+            isPictureSending = false;
+          });
           addRating();
         } else {
           print('Failed to upload file. Status code: ${response.statusCode}');
@@ -609,8 +614,12 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                   alignment: Alignment.center,
                                   child: GestureDetector(
                                     onTap: () {
-                                      // uploadFile(imageFile!);
-                                      imageFile != null ? addRating() : {};
+                                      setState(() {
+                                        isPictureSending = true;
+                                      });
+                                      imageFile != null
+                                          ? {uploadFile(imageFile!)}
+                                          : {};
                                     },
                                     child: Container(
                                         height: 50,
@@ -633,22 +642,34 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                                   color: Color.fromRGBO(
                                                       0, 0, 0, 0.35))
                                             ]),
-                                        child: const Row(
+                                        child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Icon(
-                                              Icons.done_rounded,
-                                              color: Colors.white,
-                                            ),
-                                            SizedBox(
-                                              width: 5,
+                                            isPictureSending
+                                                ? const SizedBox(
+                                                    height: 15,
+                                                    width: 15,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                            strokeWidth: 3,
+                                                            color:
+                                                                Colors.white))
+                                                : const Icon(
+                                                    Icons.done_rounded,
+                                                    color: Colors.white,
+                                                  ),
+                                            const SizedBox(
+                                              width: 10,
                                             ),
                                             Padding(
-                                              padding: EdgeInsets.only(top: 6),
+                                              padding:
+                                                  const EdgeInsets.only(top: 6),
                                               child: Text(
-                                                "Marcar como finalizada",
-                                                style: TextStyle(
+                                                isPictureSending
+                                                    ? "Enviando..."
+                                                    : "Marcar como finalizada",
+                                                style: const TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 18),
