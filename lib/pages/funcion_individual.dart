@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_string_escapes
+// ignore_for_file: unnecessary_string_escapes, avoid_print
 
 import 'dart:convert';
 import 'dart:io';
