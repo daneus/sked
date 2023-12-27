@@ -119,17 +119,47 @@ class _FuncionesPasadasState extends State<FuncionesPasadas> {
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          child: CachedNetworkImage(
-                                            imageUrl: picture,
-                                            placeholder: (context, url) =>
-                                                const Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                              color: Colors.white,
-                                            )),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    const Icon(Icons.error),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return Dialog(
+                                                      child: SizedBox(
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        0.6,
+                                                    child: CachedNetworkImage(
+                                                      imageUrl: picture,
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          const Center(
+                                                              child:
+                                                                  CircularProgressIndicator(
+                                                        color: Colors.white,
+                                                      )),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          const Icon(
+                                                              Icons.error),
+                                                    ),
+                                                  ));
+                                                },
+                                              );
+                                            },
+                                            child: CachedNetworkImage(
+                                              imageUrl: picture,
+                                              placeholder: (context, url) =>
+                                                  const Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Icon(Icons.error),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -228,11 +258,6 @@ class _FuncionesPasadasState extends State<FuncionesPasadas> {
                                     ],
                                   ),
                                 );
-                                // return CachedNetworkImage(
-                                //   imageUrl: picture,
-                                //   placeholder: (context, url) => CircularProgressIndicator(),
-                                //   errorWidget: (context, url, error) => Icon(Icons.error),
-                                // );
                               },
                             );
                     },
