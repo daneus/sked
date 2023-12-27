@@ -99,7 +99,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
     Future<void> removeFunction(String title) async {
       var url =
           Uri.parse('http://192.168.18.12:3333/eliminarFuncion?titulo=$title');
-      var request = await http.delete(url);
+      await http.delete(url);
 
       Map<String, dynamic> mergedMap =
           widget.modeloFuncion!.mergeWithRating(_rating);

@@ -140,8 +140,8 @@ class _FuncionesState extends State<Funciones> {
                                 widget.onFuncionSelected(function);
                               },
                               child: Container(
-                                margin:
-                                    const EdgeInsets.only(left: 25, right: 25),
+                                margin: const EdgeInsets.only(
+                                    left: 25, right: 25, bottom: 25),
                                 height: 115,
                                 decoration: BoxDecoration(
                                     gradient: const LinearGradient(

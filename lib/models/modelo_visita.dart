@@ -9,7 +9,7 @@ class ModeloVisita {
   final List<dynamic> seats;
   final String screen;
   final List<dynamic> genres;
-  final String userRating;
+  final int userRating;
 
   ModeloVisita(
       {required this.backdropURL,

@@ -7,6 +7,7 @@ import 'package:sked/models/modelo_api_data.dart';
 import 'package:sked/models/modelo_futura_pelicula.dart';
 import 'package:sked/models/modelo_pelicula.dart';
 import 'package:http/http.dart' as http;
+import 'package:sked/models/modelo_visita.dart';
 import 'package:sked/pages/home.dart';
 
 class DataModel extends ChangeNotifier {
@@ -39,6 +40,11 @@ class DataModel extends ChangeNotifier {
     return json.decode(responseBody);
   }
 
+  List<ModeloVisita> parseVisits(String responseBody) {
+    List<dynamic> jsonData = json.decode(responseBody);
+    return jsonData.map((json) => ModeloVisita.fromJson(json)).toList();
+  }
+
   Future<ModeloAPIData> fetchDataFromAPI() async {
     try {
       if (_data != null) {
@@ -54,16 +60,20 @@ class DataModel extends ChangeNotifier {
           await http.get(Uri.parse('http://192.168.18.12:3333/funciones'));
       final responsePictures =
           await http.get(Uri.parse('http://192.168.18.12:3333/fotosVisitas'));
+      final responseVisits =
+          await http.get(Uri.parse('http://192.168.18.12:3333/visitas'));
 
       if (responseMovies.statusCode == 200 &&
           responseFutureMovies.statusCode == 200 &&
           responseFunctions.statusCode == 200 &&
-          responsePictures.statusCode == 200) {
+          responsePictures.statusCode == 200 &&
+          responseVisits.statusCode == 200) {
         _data!.cartelera = List.of(parseMovies(responseMovies.body));
         _data!.proximamente =
             List.of(parseFutureMovies(responseFutureMovies.body));
         _data!.funciones = List.of(parseFunctions(responseFunctions.body));
         _data!.fotosVisitas = parsePictures(responsePictures.body);
+        _data!.visitas = List.of(parseVisits(responseVisits.body));
 
         notifyListeners();
         return _data!;
