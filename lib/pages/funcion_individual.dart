@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_string_escapes
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -98,9 +99,22 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
     Future<void> removeFunction(String title) async {
       var url =
           Uri.parse('http://192.168.18.12:3333/eliminarFuncion?titulo=$title');
-      await http.delete(url);
-      dataModel.updateFunctions();
-      widget.onBodyChanged(1);
+      var request = await http.delete(url);
+
+      Map<String, dynamic> mergedMap =
+          widget.modeloFuncion!.mergeWithRating(_rating);
+
+      var url2 = Uri.parse('http://192.168.18.12:3333/agregarVisita');
+      var request2 = await http.post(url2,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: json.encode(mergedMap));
+
+      if (request2.statusCode == 200) {
+        dataModel.updateFunctions();
+        widget.onBodyChanged(1);
+      }
     }
 
     void addRating() {
