@@ -98,14 +98,16 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
     }
 
     Future<void> removeFunction(String title) async {
-      var url =
-          Uri.parse('${dotenv.env["API_URL"]}/eliminarFuncion?titulo=$title');
+      String apiURL = String.fromEnvironment('API_URL',
+          defaultValue: '${dotenv.env["API_URL"]}');
+
+      var url = Uri.parse('$apiURL/eliminarFuncion?titulo=$title');
       await http.delete(url);
 
       Map<String, dynamic> mergedMap =
           widget.modeloFuncion!.mergeWithRating(_rating);
 
-      var url2 = Uri.parse('${dotenv.env["API_URL"]}/agregarVisita');
+      var url2 = Uri.parse('$apiURL/agregarVisita');
       var request2 = await http.post(url2,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -256,7 +258,10 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
     }
 
     Future<void> uploadFile(File file) async {
-      var url = Uri.parse('${dotenv.env["API_URL"]}/subirFotoVisita');
+      String apiURL = String.fromEnvironment('API_URL',
+          defaultValue: '${dotenv.env["API_URL"]}');
+
+      var url = Uri.parse('$apiURL/subirFotoVisita');
       var request = http.MultipartRequest('POST', url);
 
       var stream = http.ByteStream.fromBytes(file.readAsBytesSync());

@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -19,6 +20,9 @@ class DataModel extends ChangeNotifier {
   ModeloAPIData? _data;
   ModeloAPIData? get data => _data;
 
+  String apiURL = String.fromEnvironment('API_URL',
+      defaultValue: '${dotenv.env["API_URL"]}');
+
   List<ModeloPelicula> parseMovies(String responseBody) {
     List<dynamic> jsonData = json.decode(responseBody);
     return jsonData.map((json) => ModeloPelicula.fromJson(json)).toList();
@@ -30,12 +34,10 @@ class DataModel extends ChangeNotifier {
   }
 
   void updateFunctionsAndVisits() async {
-    final responseFunctions =
-        await http.get(Uri.parse('${dotenv.env["API_URL"]}/funciones'));
+    final responseFunctions = await http.get(Uri.parse('$apiURL/funciones'));
     _data!.funciones = List.of(parseFunctions(responseFunctions.body));
 
-    final responsePictures =
-        await http.get(Uri.parse('${dotenv.env["API_URL"]}/fotosVisitas'));
+    final responsePictures = await http.get(Uri.parse('$apiURL/fotosVisitas'));
     _data!.fotosVisitas = List.of(parsePictures(responsePictures.body));
 
     notifyListeners();
@@ -62,16 +64,13 @@ class DataModel extends ChangeNotifier {
       }
       _data = ModeloAPIData();
 
-      final responseMovies =
-          await http.get(Uri.parse('${dotenv.env["API_URL"]}/cartelera'));
+      final responseMovies = await http.get(Uri.parse('$apiURL/cartelera'));
       final responseFutureMovies =
-          await http.get(Uri.parse('${dotenv.env["API_URL"]}/proximamente'));
-      final responseFunctions =
-          await http.get(Uri.parse('${dotenv.env["API_URL"]}/funciones'));
+          await http.get(Uri.parse('$apiURL/proximamente'));
+      final responseFunctions = await http.get(Uri.parse('$apiURL/funciones'));
       final responsePictures =
-          await http.get(Uri.parse('${dotenv.env["API_URL"]}/fotosVisitas'));
-      final responseVisits =
-          await http.get(Uri.parse('${dotenv.env["API_URL"]}/visitas'));
+          await http.get(Uri.parse('$apiURL/fotosVisitas'));
+      final responseVisits = await http.get(Uri.parse('$apiURL/visitas'));
 
       if (responseMovies.statusCode == 200 &&
           responseFutureMovies.statusCode == 200 &&
@@ -219,7 +218,9 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
 
-  await dotenv.load(fileName: ".env");
+  if (!Platform.environment.containsKey('API_URL')) {
+    await dotenv.load(fileName: ".env");
+  }
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
