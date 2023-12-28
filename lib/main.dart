@@ -10,6 +10,8 @@ import 'package:sked/models/modelo_pelicula.dart';
 import 'package:http/http.dart' as http;
 import 'package:sked/models/modelo_visita.dart';
 import 'package:sked/pages/home.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class DataModel extends ChangeNotifier {
   ModeloAPIData? _data;
@@ -77,6 +79,57 @@ class DataModel extends ChangeNotifier {
         _data!.visitas = List.of(parseVisits(responseVisits.body));
 
         notifyListeners();
+
+        tz.initializeTimeZones();
+        tz.setLocalLocation(tz.getLocation('America/Lima'));
+
+        String dateString =
+            '${_data!.visitas?[0].functionDate} ${_data!.visitas?[0].functionTime}';
+
+        DateTime dateTime = DateTime.parse(dateString);
+
+        tz.TZDateTime functionDate = tz.TZDateTime(
+          tz.local,
+          dateTime.year,
+          dateTime.month,
+          dateTime.day,
+          dateTime.hour,
+          dateTime.minute,
+        );
+
+        tz.TZDateTime scheduledDate =
+            functionDate.subtract(const Duration(hours: 24));
+
+        FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+            FlutterLocalNotificationsPlugin();
+        const AndroidNotificationDetails androidNotificationDetails =
+            AndroidNotificationDetails(
+          'phone',
+          'Phone',
+          channelDescription: 'User device',
+          importance: Importance.max,
+          priority: Priority.high,
+        );
+        const DarwinNotificationDetails darwinNotificationDetails =
+            DarwinNotificationDetails();
+        const NotificationDetails notificationDetails = NotificationDetails(
+            android: androidNotificationDetails,
+            iOS: darwinNotificationDetails);
+
+        if (!scheduledDate.isBefore(DateTime.now())) {
+          await flutterLocalNotificationsPlugin.zonedSchedule(
+            0,
+            '¡Película mañana!',
+            '${_data!.visitas?[0].title}'
+                " \u2022 "
+                '${_data!.visitas?[0].functionTime}',
+            scheduledDate,
+            notificationDetails,
+            uiLocalNotificationDateInterpretation:
+                UILocalNotificationDateInterpretation.absoluteTime,
+          );
+        }
+
         return _data!;
       } else {
         throw Exception(
