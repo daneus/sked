@@ -12,6 +12,7 @@ import 'package:sked/models/modelo_visita.dart';
 import 'package:sked/pages/home.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class DataModel extends ChangeNotifier {
   ModeloAPIData? _data;
@@ -27,10 +28,15 @@ class DataModel extends ChangeNotifier {
     return jsonData.map((json) => ModeloFuturaPelicula.fromJson(json)).toList();
   }
 
-  void updateFunctions() async {
+  void updateFunctionsAndVisits() async {
     final responseFunctions =
-        await http.get(Uri.parse('http://192.168.18.12:3333/funciones'));
+        await http.get(Uri.parse('${dotenv.env["API_URL"]}/funciones'));
     _data!.funciones = List.of(parseFunctions(responseFunctions.body));
+
+    final responsePictures =
+        await http.get(Uri.parse('${dotenv.env["API_URL"]}/fotosVisitas'));
+    _data!.fotosVisitas = List.of(parsePictures(responsePictures.body));
+
     notifyListeners();
   }
 
@@ -56,15 +62,15 @@ class DataModel extends ChangeNotifier {
       _data = ModeloAPIData();
 
       final responseMovies =
-          await http.get(Uri.parse('http://192.168.18.12:3333/cartelera'));
+          await http.get(Uri.parse('${dotenv.env["API_URL"]}/cartelera'));
       final responseFutureMovies =
-          await http.get(Uri.parse('http://192.168.18.12:3333/proximamente'));
+          await http.get(Uri.parse('${dotenv.env["API_URL"]}/proximamente'));
       final responseFunctions =
-          await http.get(Uri.parse('http://192.168.18.12:3333/funciones'));
+          await http.get(Uri.parse('${dotenv.env["API_URL"]}/funciones'));
       final responsePictures =
-          await http.get(Uri.parse('http://192.168.18.12:3333/fotosVisitas'));
+          await http.get(Uri.parse('${dotenv.env["API_URL"]}/fotosVisitas'));
       final responseVisits =
-          await http.get(Uri.parse('http://192.168.18.12:3333/visitas'));
+          await http.get(Uri.parse('${dotenv.env["API_URL"]}/visitas'));
 
       if (responseMovies.statusCode == 200 &&
           responseFutureMovies.statusCode == 200 &&
@@ -207,6 +213,7 @@ class _MyAppState extends State<MyApp> {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();

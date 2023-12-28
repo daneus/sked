@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -98,13 +99,13 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
 
     Future<void> removeFunction(String title) async {
       var url =
-          Uri.parse('http://192.168.18.12:3333/eliminarFuncion?titulo=$title');
+          Uri.parse('${dotenv.env["API_URL"]}/eliminarFuncion?titulo=$title');
       await http.delete(url);
 
       Map<String, dynamic> mergedMap =
           widget.modeloFuncion!.mergeWithRating(_rating);
 
-      var url2 = Uri.parse('http://192.168.18.12:3333/agregarVisita');
+      var url2 = Uri.parse('${dotenv.env["API_URL"]}/agregarVisita');
       var request2 = await http.post(url2,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -112,7 +113,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
           body: json.encode(mergedMap));
 
       if (request2.statusCode == 200) {
-        dataModel.updateFunctions();
+        dataModel.updateFunctionsAndVisits();
         widget.onBodyChanged(1);
       }
     }
@@ -255,7 +256,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
     }
 
     Future<void> uploadFile(File file) async {
-      var url = Uri.parse('http://192.168.18.12:3333/subirFotoVisita');
+      var url = Uri.parse('${dotenv.env["API_URL"]}/subirFotoVisita');
       var request = http.MultipartRequest('POST', url);
 
       var stream = http.ByteStream.fromBytes(file.readAsBytesSync());
