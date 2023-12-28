@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:sked/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -53,6 +54,42 @@ class _FuncionesPasadasState extends State<FuncionesPasadas> {
                       fontSize: 35),
                 ),
               ),
+              Padding(
+                  padding: EdgeInsets.all(10),
+                  child: GestureDetector(
+                      onTap: () async {
+                        FlutterLocalNotificationsPlugin
+                            flutterLocalNotificationsPlugin =
+                            FlutterLocalNotificationsPlugin();
+                        const AndroidNotificationDetails
+                            androidNotificationDetails =
+                            AndroidNotificationDetails(
+                                'your channel id', 'your channel name',
+                                channelDescription: 'your channel description',
+                                importance: Importance.max,
+                                priority: Priority.high,
+                                ticker: 'ticker');
+                        const DarwinNotificationDetails
+                            darwinNotificationDetails =
+                            DarwinNotificationDetails();
+                        const NotificationDetails notificationDetails =
+                            NotificationDetails(
+                                android: androidNotificationDetails,
+                                iOS: darwinNotificationDetails);
+                        await flutterLocalNotificationsPlugin.show(
+                          0,
+                          '¡Película mañana!',
+                          '${dataModel.data!.visitas?[1].title}'
+                              " \u2022 "
+                              '${dataModel.data!.visitas?[1].functionTime}',
+                          notificationDetails,
+                        );
+                      },
+                      child: Container(
+                        width: 100,
+                        height: 40,
+                        child: Text("Test"),
+                      ))),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 30),
