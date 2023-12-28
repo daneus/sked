@@ -80,54 +80,56 @@ class DataModel extends ChangeNotifier {
 
         notifyListeners();
 
-        tz.initializeTimeZones();
-        tz.setLocalLocation(tz.getLocation('America/Lima'));
+        if (_data!.funciones!.isNotEmpty) {
+          tz.initializeTimeZones();
+          tz.setLocalLocation(tz.getLocation('America/Lima'));
 
-        String dateString =
-            '${_data!.visitas?[0].functionDate} ${_data!.visitas?[0].functionTime}';
+          String dateString =
+              '${_data!.funciones?[0].functionDate} ${_data!.funciones?[0].functionTime}';
 
-        DateTime dateTime = DateTime.parse(dateString);
+          DateTime dateTime = DateTime.parse(dateString);
 
-        tz.TZDateTime functionDate = tz.TZDateTime(
-          tz.local,
-          dateTime.year,
-          dateTime.month,
-          dateTime.day,
-          dateTime.hour,
-          dateTime.minute,
-        );
-
-        tz.TZDateTime scheduledDate =
-            functionDate.subtract(const Duration(hours: 24));
-
-        FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-            FlutterLocalNotificationsPlugin();
-        const AndroidNotificationDetails androidNotificationDetails =
-            AndroidNotificationDetails(
-          'phone',
-          'Phone',
-          channelDescription: 'User device',
-          importance: Importance.max,
-          priority: Priority.high,
-        );
-        const DarwinNotificationDetails darwinNotificationDetails =
-            DarwinNotificationDetails();
-        const NotificationDetails notificationDetails = NotificationDetails(
-            android: androidNotificationDetails,
-            iOS: darwinNotificationDetails);
-
-        if (!scheduledDate.isBefore(DateTime.now())) {
-          await flutterLocalNotificationsPlugin.zonedSchedule(
-            0,
-            '¡Película mañana!',
-            '${_data!.visitas?[0].title}'
-                " \u2022 "
-                '${_data!.visitas?[0].functionTime}',
-            scheduledDate,
-            notificationDetails,
-            uiLocalNotificationDateInterpretation:
-                UILocalNotificationDateInterpretation.absoluteTime,
+          tz.TZDateTime functionDate = tz.TZDateTime(
+            tz.local,
+            dateTime.year,
+            dateTime.month,
+            dateTime.day,
+            dateTime.hour,
+            dateTime.minute,
           );
+
+          tz.TZDateTime scheduledDate =
+              functionDate.subtract(const Duration(hours: 24));
+
+          FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+              FlutterLocalNotificationsPlugin();
+          const AndroidNotificationDetails androidNotificationDetails =
+              AndroidNotificationDetails(
+            'phone',
+            'Phone',
+            channelDescription: 'User device',
+            importance: Importance.max,
+            priority: Priority.high,
+          );
+          const DarwinNotificationDetails darwinNotificationDetails =
+              DarwinNotificationDetails();
+          const NotificationDetails notificationDetails = NotificationDetails(
+              android: androidNotificationDetails,
+              iOS: darwinNotificationDetails);
+
+          if (!scheduledDate.isBefore(DateTime.now())) {
+            await flutterLocalNotificationsPlugin.zonedSchedule(
+              0,
+              '¡Película mañana!',
+              '${_data!.funciones?[0].title}'
+                  " \u2022 "
+                  '${_data!.funciones?[0].functionTime}',
+              scheduledDate,
+              notificationDetails,
+              uiLocalNotificationDateInterpretation:
+                  UILocalNotificationDateInterpretation.absoluteTime,
+            );
+          }
         }
 
         return _data!;
