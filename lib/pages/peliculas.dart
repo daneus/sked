@@ -68,9 +68,9 @@ class _PeliculasState extends State<Peliculas> {
   List<double> changePositionAndWidthOfLine() {
     switch (currentTab) {
       case 0:
-        return [43, 115];
+        return [95, 120];
       case 1:
-        return [223, 143];
+        return [353, 150];
       default:
         return [0, 100];
     }
@@ -138,7 +138,7 @@ class _PeliculasState extends State<Peliculas> {
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
-                          fontSize: 40),
+                          fontSize: 45),
                     ),
                   ),
                   Container(
@@ -160,7 +160,7 @@ class _PeliculasState extends State<Peliculas> {
                                     child: Text(
                                   "En cartelera",
                                   style: TextStyle(
-                                      fontSize: 24,
+                                      fontSize: 28,
                                       fontWeight: FontWeight.w700,
                                       color: currentTab == 0
                                           ? Colors.white
@@ -181,7 +181,7 @@ class _PeliculasState extends State<Peliculas> {
                                     child: Text(
                                   "Próximamente",
                                   style: TextStyle(
-                                      fontSize: 24,
+                                      fontSize: 28,
                                       fontWeight: FontWeight.w700,
                                       color: currentTab == 1
                                           ? Colors.white
@@ -228,7 +228,7 @@ class _PeliculasState extends State<Peliculas> {
                               itemBuilder: (context, index) {
                                 final movie = movies[index];
                                 return Container(
-                                    width: 270,
+                                    width: 290,
                                     margin: EdgeInsets.only(
                                         left: 25,
                                         right: index == movies.length - 1
@@ -261,7 +261,7 @@ class _PeliculasState extends State<Peliculas> {
                                                   BorderRadius.circular(15),
                                               child: Image.network(
                                                 movie.verticalPosterURL,
-                                                width: 270,
+                                                width: 290,
                                               ),
                                             ),
                                           ),
@@ -274,7 +274,7 @@ class _PeliculasState extends State<Peliculas> {
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
-                                                fontSize: 22,
+                                                fontSize: 25,
                                                 fontWeight: FontWeight.w700,
                                                 color: Colors.white),
                                           ),
@@ -359,7 +359,7 @@ class _PeliculasState extends State<Peliculas> {
                                               child: Text(
                                                   formatTime(movie.runtime),
                                                   style: const TextStyle(
-                                                      fontSize: 16,
+                                                      fontSize: 20,
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.w600)),
@@ -383,7 +383,7 @@ class _PeliculasState extends State<Peliculas> {
                               itemBuilder: (context, index) {
                                 final futureMovie = futureMovies[index];
                                 return Container(
-                                    width: 295,
+                                    width: 315,
                                     margin: EdgeInsets.only(
                                         left: 25,
                                         right: index == futureMovies.length - 1
@@ -427,7 +427,7 @@ class _PeliculasState extends State<Peliculas> {
                                                     child: Image.network(
                                                       futureMovie
                                                           .verticalPosterURL,
-                                                      width: 295,
+                                                      width: 315,
                                                     ),
                                                   ),
                                                 ),

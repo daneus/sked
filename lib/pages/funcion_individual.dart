@@ -23,7 +23,7 @@ class StarIcon extends StatelessWidget {
     return Icon(
       filled ? Icons.star_rounded : Icons.star_border_rounded,
       color: const Color.fromRGBO(0, 123, 222, 1),
-      size: 35,
+      size: 45,
     );
   }
 }
@@ -334,7 +334,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                   ),
                 ),
                 Positioned(
-                  top: 215,
+                  top: 255,
                   right: 0,
                   left: 0,
                   child: Column(
@@ -344,8 +344,8 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
-                              height: 6,
-                              width: 150,
+                              height: 7,
+                              width: 200,
                               decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                       topRight: Radius.circular(10),
@@ -364,7 +364,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                               "Detalles de función",
                               style: TextStyle(
                                   color: Colors.yellow,
-                                  fontSize: 32,
+                                  fontSize: 36,
                                   fontWeight: FontWeight.w600,
                                   fontStyle: FontStyle.italic),
                             )
@@ -374,8 +374,8 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
-                              height: 6,
-                              width: 150,
+                              height: 7,
+                              width: 200,
                               decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(10),
@@ -388,7 +388,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                           height: 25,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          padding: const EdgeInsets.only(left: 30, right: 30),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -396,7 +396,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                 widget.modeloFuncion!.title,
                                 style: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 24,
+                                    fontSize: 27,
                                     fontWeight: FontWeight.w700),
                               ),
                               Row(
@@ -417,7 +417,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                               .modeloFuncion!.functionDate),
                                           style: const TextStyle(
                                               color: Colors.white,
-                                              fontSize: 18),
+                                              fontSize: 20),
                                         ),
                                         const SizedBox(
                                           width: 5,
@@ -427,7 +427,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w700,
-                                              fontSize: 18),
+                                              fontSize: 20),
                                         ),
                                         const SizedBox(
                                           width: 5,
@@ -436,7 +436,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                           widget.modeloFuncion!.functionTime,
                                           style: const TextStyle(
                                               color: Colors.white,
-                                              fontSize: 18,
+                                              fontSize: 20,
                                               fontWeight: FontWeight.w700),
                                         ),
                                       ],
@@ -461,7 +461,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                             padding: const EdgeInsets.all(5),
                                             child: Image.asset(
                                               'assets/imaxLogo.png',
-                                              width: 30,
+                                              width: 40,
                                             ),
                                           ))
                                       : Container(
@@ -500,7 +500,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                           "\u2022",
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 18,
+                                              fontSize: 20,
                                               fontWeight: FontWeight.w700),
                                         ),
                                         const SizedBox(
@@ -511,7 +511,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                               widget.modeloFuncion!.runtime),
                                           style: const TextStyle(
                                             color: Colors.white,
-                                            fontSize: 18,
+                                            fontSize: 20,
                                           ),
                                         ),
                                       ],
@@ -535,7 +535,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                     padding: const EdgeInsets.only(top: 6),
                                     child: Text(widget.modeloFuncion!.cinema,
                                         style: const TextStyle(
-                                            color: Colors.white, fontSize: 18)),
+                                            color: Colors.white, fontSize: 20)),
                                   )
                                 ],
                               ),
@@ -557,7 +557,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                         widget.modeloFuncion!.seats.join(", "),
                                         style: const TextStyle(
                                             color: Colors.white,
-                                            fontSize: 18,
+                                            fontSize: 20,
                                             fontWeight: FontWeight.w600)),
                                   )
                                 ],
@@ -579,7 +579,7 @@ class _FuncionIndividualState extends State<FuncionIndividual> {
                                     child: Text(widget.modeloFuncion!.screen,
                                         style: const TextStyle(
                                             color: Colors.white,
-                                            fontSize: 18,
+                                            fontSize: 20,
                                             fontWeight: FontWeight.w600)),
                                   )
                                 ],

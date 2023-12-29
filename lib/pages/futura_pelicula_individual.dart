@@ -54,7 +54,7 @@ class _FuturaPeliculaIndividualState extends State<FuturaPeliculaIndividual> {
                   margin: EdgeInsets.only(
                       top: MediaQuery.sizeOf(context).height * .375),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    padding: const EdgeInsets.only(left: 30, right: 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -67,7 +67,7 @@ class _FuturaPeliculaIndividualState extends State<FuturaPeliculaIndividual> {
                             style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w700,
-                              fontSize: 28,
+                              fontSize: 30,
                             ),
                           ),
                         ),
@@ -77,7 +77,7 @@ class _FuturaPeliculaIndividualState extends State<FuturaPeliculaIndividual> {
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
-                                fontSize: 16)),
+                                fontSize: 20)),
                         const SizedBox(
                           height: 8,
                         ),
@@ -98,7 +98,7 @@ class _FuturaPeliculaIndividualState extends State<FuturaPeliculaIndividual> {
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 16)),
+                                      fontSize: 18)),
                             )
                           ],
                         ),
@@ -108,7 +108,7 @@ class _FuturaPeliculaIndividualState extends State<FuturaPeliculaIndividual> {
                         Text(
                           widget.modeloFuturaPelicula!.overview,
                           style: const TextStyle(
-                              color: Colors.white, fontSize: 15.5),
+                              color: Colors.white, fontSize: 17.5),
                         ),
                         const SizedBox(
                           height: 15,
@@ -120,7 +120,7 @@ class _FuturaPeliculaIndividualState extends State<FuturaPeliculaIndividual> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 17),
+                                  fontSize: 20),
                             ),
                             const SizedBox(
                               width: 20,
@@ -129,7 +129,7 @@ class _FuturaPeliculaIndividualState extends State<FuturaPeliculaIndividual> {
                               widget.modeloFuturaPelicula!.direction,
                               style: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 17,
+                                fontSize: 20,
                                 fontStyle: FontStyle.italic,
                               ),
                             )
@@ -145,11 +145,11 @@ class _FuturaPeliculaIndividualState extends State<FuturaPeliculaIndividual> {
                               "Reparto:",
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 17,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w700),
                             ),
                             const SizedBox(
-                              width: 34,
+                              width: 35,
                             ),
                             Expanded(
                               child: Text(
@@ -157,7 +157,7 @@ class _FuturaPeliculaIndividualState extends State<FuturaPeliculaIndividual> {
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontStyle: FontStyle.italic,
-                                    fontSize: 17),
+                                    fontSize: 20),
                               ),
                             )
                           ],

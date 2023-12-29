@@ -91,7 +91,7 @@ class _FuncionesState extends State<Funciones> {
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
-                    fontSize: 40),
+                    fontSize: 45),
               ),
             ),
             const SizedBox(
@@ -141,8 +141,8 @@ class _FuncionesState extends State<Funciones> {
                               },
                               child: Container(
                                 margin: const EdgeInsets.only(
-                                    left: 25, right: 25, bottom: 25),
-                                height: 115,
+                                    left: 35, right: 35, bottom: 30),
+                                height: 125,
                                 decoration: BoxDecoration(
                                     gradient: const LinearGradient(
                                         colors: [
@@ -160,7 +160,7 @@ class _FuncionesState extends State<Funciones> {
                                     ]),
                                 child: Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 10, right: 20),
+                                      left: 25, right: 32),
                                   child: Row(children: [
                                     SizedBox(
                                       width: 80,
@@ -224,7 +224,7 @@ class _FuncionesState extends State<Funciones> {
                                                 style: const TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w700,
-                                                    fontSize: 18),
+                                                    fontSize: 22),
                                               ),
                                             ),
                                             const SizedBox(
@@ -250,7 +250,7 @@ class _FuncionesState extends State<Funciones> {
                                                                   .all(5),
                                                           child: Image.asset(
                                                             'assets/imaxLogo.png',
-                                                            width: 30,
+                                                            width: 40,
                                                           ),
                                                         )),
                                                   )
@@ -292,7 +292,7 @@ class _FuncionesState extends State<Funciones> {
                                             const Icon(
                                               Icons.location_on_rounded,
                                               color: Colors.white,
-                                              size: 20,
+                                              size: 22,
                                             ),
                                             const SizedBox(
                                               width: 3,
@@ -305,7 +305,7 @@ class _FuncionesState extends State<Funciones> {
                                                 style: const TextStyle(
                                                     fontWeight: FontWeight.w600,
                                                     color: Colors.white,
-                                                    fontSize: 14.5),
+                                                    fontSize: 17),
                                               ),
                                             )
                                           ],
@@ -315,7 +315,7 @@ class _FuncionesState extends State<Funciones> {
                                             const Icon(
                                               Icons.watch_later_outlined,
                                               color: Colors.white,
-                                              size: 20,
+                                              size: 22,
                                             ),
                                             const SizedBox(
                                               width: 4,
@@ -327,7 +327,7 @@ class _FuncionesState extends State<Funciones> {
                                                   style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.w700,
-                                                      fontSize: 14,
+                                                      fontSize: 17,
                                                       color: Colors.white)),
                                             )
                                           ],

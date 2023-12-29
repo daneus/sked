@@ -70,7 +70,7 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                   margin: EdgeInsets.only(
                       top: MediaQuery.sizeOf(context).height * .325),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    padding: const EdgeInsets.only(left: 30, right: 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -83,7 +83,7 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                             style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w700,
-                              fontSize: 24,
+                              fontSize: 30,
                             ),
                           ),
                         ),
@@ -105,7 +105,7 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                                 return const Icon(
                                   Icons.star_rate_rounded,
                                   color: Colors.amber,
-                                  size: 30,
+                                  size: 35,
                                 );
                               },
                               itemCount: 5,
@@ -120,7 +120,7 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                                 widget.modeloPelicula!.imdbRating,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 18,
+                                    fontSize: 22,
                                     color: Colors.white),
                               ),
                             )
@@ -133,7 +133,7 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
-                                fontSize: 16)),
+                                fontSize: 20)),
                         Padding(
                           padding: const EdgeInsets.only(top: 5),
                           child: Row(
@@ -172,7 +172,7 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                                 child: Text(
                                     formatTime(widget.modeloPelicula!.runtime),
                                     style: const TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 18,
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600)),
                               ),
@@ -199,7 +199,7 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 16)),
+                                      fontSize: 18)),
                             )
                           ],
                         ),
@@ -209,7 +209,7 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                         Text(
                           widget.modeloPelicula!.overview,
                           style: const TextStyle(
-                              color: Colors.white, fontSize: 15.5),
+                              color: Colors.white, fontSize: 17),
                         ),
                         const SizedBox(
                           height: 15,
@@ -221,7 +221,7 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 17),
+                                  fontSize: 20),
                             ),
                             const SizedBox(
                               width: 20,
@@ -230,7 +230,7 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                               widget.modeloPelicula!.direction,
                               style: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 17,
+                                fontSize: 20,
                                 fontStyle: FontStyle.italic,
                               ),
                             )
@@ -246,11 +246,11 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                               "Reparto:",
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 17,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w700),
                             ),
                             const SizedBox(
-                              width: 34,
+                              width: 34.8,
                             ),
                             Expanded(
                               child: Text(
@@ -258,7 +258,7 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontStyle: FontStyle.italic,
-                                    fontSize: 17),
+                                    fontSize: 20),
                               ),
                             )
                           ],

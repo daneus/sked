@@ -219,6 +219,11 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
 
+  AndroidFlutterLocalNotificationsPlugin
+      androidFlutterLocalNotificationsPlugin =
+      AndroidFlutterLocalNotificationsPlugin();
+  androidFlutterLocalNotificationsPlugin.requestExactAlarmsPermission();
+
   await dotenv.load(fileName: ".env");
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =

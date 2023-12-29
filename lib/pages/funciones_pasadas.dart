@@ -50,7 +50,7 @@ class _FuncionesPasadasState extends State<FuncionesPasadas> {
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,
-                      fontSize: 35),
+                      fontSize: 45),
                 ),
               ),
               Expanded(
@@ -97,8 +97,8 @@ class _FuncionesPasadasState extends State<FuncionesPasadas> {
                                 final visit = visits[index];
                                 return Container(
                                   margin: EdgeInsets.only(
-                                      left: 35,
-                                      right: 35,
+                                      left: 40,
+                                      right: 40,
                                       bottom: index == pictures.length - 1
                                           ? 20
                                           : 35),
@@ -189,7 +189,7 @@ class _FuncionesPasadasState extends State<FuncionesPasadas> {
                                                       visit.title,
                                                       style: const TextStyle(
                                                           color: Colors.white,
-                                                          fontSize: 18,
+                                                          fontSize: 20,
                                                           fontWeight:
                                                               FontWeight.w600),
                                                     ),
@@ -220,7 +220,7 @@ class _FuncionesPasadasState extends State<FuncionesPasadas> {
                                                       visit.cinema,
                                                       style: const TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 18,
+                                                        fontSize: 20,
                                                       ),
                                                     ),
                                                   ),
