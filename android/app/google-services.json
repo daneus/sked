@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "498563409776",
+    "project_id": "sked-fcm",
+    "storage_bucket": "sked-fcm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498563409776:android:36f9b702368a3ea120d1b5",
+        "android_client_info": {
+          "package_name": "com.daneus.sked"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK3OULaPGbeASJbgxdCd7b6c0IHYcL6Qo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

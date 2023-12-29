@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'package:sked/fcm/firebase_api.dart';
+import 'package:sked/firebase_options.dart';
 import 'package:sked/models/modelo_funcion.dart';
 import 'package:sked/models/modelo_api_data.dart';
 import 'package:sked/models/modelo_futura_pelicula.dart';
@@ -14,6 +16,7 @@ import 'package:sked/pages/home.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class DataModel extends ChangeNotifier {
   ModeloAPIData? _data;
@@ -214,6 +217,9 @@ class _MyAppState extends State<MyApp> {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseApi().initNotifications();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
