@@ -151,11 +151,14 @@ class _FuncionesPasadasState extends State<FuncionesPasadas> {
                                             child: CachedNetworkImage(
                                               imageUrl: picture,
                                               placeholder: (context, url) =>
-                                                  const Center(
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                color: Colors.white,
-                                              )),
+                                                  const SizedBox(
+                                                width: 120,
+                                                child: Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                  color: Colors.white,
+                                                )),
+                                              ),
                                               errorWidget:
                                                   (context, url, error) =>
                                                       const Icon(Icons.error),

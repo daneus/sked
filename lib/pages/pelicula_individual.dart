@@ -68,7 +68,7 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
           SafeArea(
               child: Container(
                   margin: EdgeInsets.only(
-                      top: MediaQuery.sizeOf(context).height * .325),
+                      top: MediaQuery.sizeOf(context).height * .28),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 30, right: 30),
                     child: Column(
