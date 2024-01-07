@@ -36,14 +36,18 @@ class _HomeState extends State<Home> {
         onFuncionSelected: handleModeloFuncion,
       ),
       const FuncionesPasadas(),
-      const PeliculaIndividual(),
-      FuncionIndividual(onBodyChanged: navigateBottomBar)
+      const Placeholder(),
+      // FuncionIndividual(onBodyChanged: navigateBottomBar)
+      const Placeholder()
     ];
   }
 
   void handleModeloPelicula(ModeloPelicula peliculaSeleccionada) {
     setState(() {
-      _pages[3] = PeliculaIndividual(modeloPelicula: peliculaSeleccionada);
+      _pages[3] = PeliculaIndividual(
+        modeloPelicula: peliculaSeleccionada,
+        onBodyChanged: navigateBottomBar,
+      );
     });
   }
 
@@ -51,7 +55,9 @@ class _HomeState extends State<Home> {
       ModeloFuturaPelicula futuraPeliculaSeleccionada) {
     setState(() {
       _pages[3] = FuturaPeliculaIndividual(
-          modeloFuturaPelicula: futuraPeliculaSeleccionada);
+        modeloFuturaPelicula: futuraPeliculaSeleccionada,
+        onBodyChanged: navigateBottomBar,
+      );
     });
   }
 
@@ -73,7 +79,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
+      body: IndexedStack(index: _selectedIndex, children: _pages),
       bottomNavigationBar: CustomNavigationBar(navigateBottomBar),
       extendBody: true,
     );

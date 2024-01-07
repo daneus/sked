@@ -8,8 +8,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class PeliculaIndividual extends StatefulWidget {
   final ModeloPelicula? modeloPelicula;
+  final Function(int) onBodyChanged;
 
-  const PeliculaIndividual({this.modeloPelicula, super.key});
+  const PeliculaIndividual({
+    this.modeloPelicula,
+    super.key,
+    required this.onBodyChanged,
+  });
 
   @override
   State<PeliculaIndividual> createState() => _PeliculaIndividualState();
@@ -265,7 +270,25 @@ class _PeliculaIndividualState extends State<PeliculaIndividual> {
                         )
                       ],
                     ),
-                  )))
+                  ))),
+          SafeArea(
+              child: Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: GestureDetector(
+              onTap: () {
+                widget.onBodyChanged(0);
+              },
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color.fromARGB(255, 44, 44, 44)),
+                  child: const Icon(
+                    Icons.chevron_left_rounded,
+                    size: 50,
+                    color: Colors.white,
+                  )),
+            ),
+          ))
         ])
       ],
     ));

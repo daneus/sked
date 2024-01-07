@@ -5,9 +5,12 @@ import 'package:sked/models/modelo_futura_pelicula.dart';
 
 class FuturaPeliculaIndividual extends StatefulWidget {
   final ModeloFuturaPelicula? modeloFuturaPelicula;
+  final Function(int) onBodyChanged;
 
   const FuturaPeliculaIndividual(
-      {required this.modeloFuturaPelicula, super.key});
+      {required this.modeloFuturaPelicula,
+      super.key,
+      required this.onBodyChanged});
 
   @override
   State<FuturaPeliculaIndividual> createState() =>
@@ -164,7 +167,25 @@ class _FuturaPeliculaIndividualState extends State<FuturaPeliculaIndividual> {
                         )
                       ],
                     ),
-                  )))
+                  ))),
+          SafeArea(
+              child: Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: GestureDetector(
+              onTap: () {
+                widget.onBodyChanged(0);
+              },
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color.fromARGB(255, 44, 44, 44)),
+                  child: const Icon(
+                    Icons.chevron_left_rounded,
+                    size: 50,
+                    color: Colors.white,
+                  )),
+            ),
+          ))
         ])
       ],
     ));
